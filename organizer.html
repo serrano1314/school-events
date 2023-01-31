@@ -6,10 +6,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>School Events Management System</title>
         <link rel="stylesheet" href="style.css">
+        <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.1/main.min.css" rel="stylesheet"></link>
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.1/index.global.min.js'></script>
+        <style>
+            #calendar{
+                width: 1000px;
+            }
+        </style>
     </head>
 <body>
     <div class="container">
-        helo
+
+        <div class="organizer-tools">
+            Event Name: <input type="text" id="eventName" class="add-event-btn"/>
+            Start: <input type="datetime-local" id="eventStart"/>
+            End: <input type="datetime-local" id="eventEnd"/>
+            <button id="addEvent">Add Event</button>
+        </div>
+        <div id='calendar'></div>
     </div>
     <script src="script.js"></script>
 </body>
