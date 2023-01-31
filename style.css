@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+*{
+    font-family: 'Open Sans', sans-serif;
+}
+#homepage { 
+    height:100vh;
+    width:100vw;
+    background:linear-gradient(120deg, rgb(241, 241, 241), rgb(241, 241, 241) 60%, #A6EAFF 60%, #A6EAFF);
+}
+body { 
+    margin: 0;   /* Remove body margins */
+}
+form.login {
+    display: inline-block;
+    /* background-color: aquamarine; */
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+form.login input, form.login button{
+    margin-top: 10px;
+}
+.btn_login {
+    background-color: #A6EAFF;
+    border: none;
+    padding: 8px;
+    width: 80px;
+    border-radius: 8px;
+    box-shadow: 1px 5px 5px -5px 
+}
+.btn_login:hover{
+    background-color: #ddfbff;
+}
+.login input{
+    height: 30px;
+    border-radius: 8px;
+    border: none;
+    padding-left: 15px;
+    box-shadow: 1px 5px 5px -5px 
+}
+h1.app-title{
+    text-align: center;
+    margin: 0;
+    padding-top: 20%;
+    /* background-color:blue; */
+}
