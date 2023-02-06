@@ -57,3 +57,28 @@ h1.app-title{
     padding-top: 20%;
     /* background-color:blue; */
 }
+
+/*nav bar*/
+
+.myNav{
+    text-align: right;
+    background-color: #A6EAFF;
+    margin-bottom: 30px;
+    padding: 20px 0px;
+}
+.myNav a {
+    text-decoration: none;
+    color: black;
+    padding: 20px 10px;
+}
+.myNav a:hover{
+    background-color: #ddfbff;
+}
+.myNav span{
+    /* background-color: aquamarine; */
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    font-size: x-large;
+    float: left;
+}
