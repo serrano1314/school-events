@@ -1,3 +1,8 @@
+var now = new Date();
+now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+document.getElementById("eventStart").value = now.toISOString().slice(0,16);
+document.getElementById("eventEnd").value = now.toISOString().slice(0,16);
+document.getElementById("eventStart").min = now.toISOString().slice(0,16);
 
 display_calendar();
 function display_calendar(data) {
@@ -5,7 +10,7 @@ function display_calendar(data) {
     var calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: 'dayGridMonth',
       height: 650,
-
+      editable: true,
     //   headerToolbar:{
     //     center: 'dayGridMonth, timeGridWeek, timeGridDay'
     //   },
@@ -16,7 +21,6 @@ function display_calendar(data) {
 };
 
 addEventBtn = document.getElementById("addEvent")
-
 
 addEventBtn.addEventListener('click', getData)
 function getData(){
