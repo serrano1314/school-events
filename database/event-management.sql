@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2023 at 07:13 PM
+-- Generation Time: Feb 13, 2023 at 03:15 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -68,6 +68,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
+  `user_type` int(11) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `middle_name` varchar(255) NOT NULL,
@@ -77,6 +78,17 @@ CREATE TABLE `users` (
   `section` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `user_type`, `first_name`, `last_name`, `middle_name`, `gender`, `course`, `year`, `section`, `email`) VALUES
+(1, 'testuser1', 'testpassword', 1, 'steven', 'serrano', 'portacio', 'm', 'bsis-ns', 4, '4c', 'steven.serrano@tup.edu.ph'),
+(3, 'testuser2', 'rasdtagar', 2, 'aefafeaf', 'gaegaeg', 'geagage', 'o', 'geagaeg', 3, 'agdasgea', 'geagas'),
+(4, 'testuser3', 'feasgaeg', 2, 'geagaega', 'geagaseg', 'gaegasg', 'f', 'gasegasgeagda', 1, 'adgaegas', 'geagaeag'),
+(5, 'student1', '123456', 3, 'altahim', 'gaegagea', 'egasgdag', 'm', 'gasdga', 1, 'geaa', 'gaeaaega'),
+(6, 'prof1', '123456', 2, 'nahida', 'feasfaes', 'feasf', 'f', 'feaf', 4, 'gaega', 'gaegas');
 
 -- --------------------------------------------------------
 
@@ -114,7 +126,8 @@ ALTER TABLE `report`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- Indexes for table `user_feedback`
@@ -143,7 +156,7 @@ ALTER TABLE `report`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `user_feedback`
