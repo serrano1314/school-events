@@ -27,19 +27,17 @@
             if(mysqli_num_rows($result) === 1){
                 $row = mysqli_fetch_assoc($result);
                 if($row['username'] === $uname && $row['password'] === $pass){
-                    $_SESSION['username'] = $row['username'];
-                    $_SESSION['first_name'] = $row['first_name'];
-                    $_SESSION['id'] = $row['id'];
                     $_SESSION['user_type'] = $row['user_type'];
-                    if($_SESSION['user_type'] === "1"){
+                    $_SESSION['userdata'] = $row;
+                    if($_SESSION['user_type'] === "admin"){
                         header("location: admin/index.php");
                         exit();
                     }
-                    if($_SESSION['user_type'] === "2"){
+                    if($_SESSION['user_type'] === "organizer"){
                         header("location: organizer/index.php");
                         exit();
                     } 
-                    if($_SESSION['user_type'] === "3"){
+                    if($_SESSION['user_type'] === "participant"){
                         header("location: participant/index.php");
                         exit();
                     } 
