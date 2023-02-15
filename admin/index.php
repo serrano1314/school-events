@@ -2,7 +2,6 @@
 <?php 
     session_start();
 
-            }else{
     if(isset($_SESSION['userdata'])){ 
         
         echo 'logged in';
