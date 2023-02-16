@@ -29,7 +29,7 @@
                 if($row['username'] === $uname && $row['password'] === $pass){
                     $_SESSION['user_type'] = $row['user_type'];
                     $_SESSION['userdata'] = $row;
-                    if($_SESSION['user_type'] === "admin"){
+                    if($_SESSION['user_type'] === "administrator"){
                         header("location: admin/index.php");
                         exit();
                     }
