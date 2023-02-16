@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2023 at 02:41 AM
+-- Generation Time: Feb 16, 2023 at 02:53 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -84,13 +84,19 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `user_type`, `first_name`, `last_name`, `middle_name`, `gender`, `course`, `year`, `section`, `email`) VALUES
-(1, 'testuser1', '123', '', 'steven', 'serrano', 'portacio', '', 'bsis-ns', 4, 'c', 'steven.serrano@tup.edu.ph'),
-(3, 'testuser2', 'rasdtagar', 'organizer', 'aefafeaf', 'gaegaeg', 'geagage', '', 'geagaeg', 3, 'agdasgea', 'geagas'),
-(4, 'testuser3', 'feasgaeg', 'organizer', 'geagaega', 'geagaseg', 'gaegasg', '', 'gasegasgeagda', 1, 'adgaegas', 'geagaeag'),
-(5, 'student1', '123456', 'participant', 'altahim', 'gaegagea', 'egasgdag', '', 'gasdga', 1, 'geaa', 'gaeaaega'),
-(6, 'prof1', '123456', 'organizer', 'nahida', 'feasfaes', 'feasf', '', 'feaf', 4, 'gaega', 'gaegas'),
-(7, 'default6', 'default123', '', 'tarik', 'efad', 'adgfasg', '', 'bscs', 2, 'd', 'asgdagas@hgmai.vados'),
-(8, 'default7', 'default123', '', 'shook', 'ageage', 'shads', '', 'bscs', 5, 'ad', 'user7@dgnaonae');
+(1, 'testuser1', '123', 'administrator', 'steven', 'serrano', 'portacio', 'male', 'bsis-ns', 4, 'c', 'steven.serrano@tup.edu.ph'),
+(3, 'testuser2', 'rasdtagar', 'organizer', 'aefafeaf', 'gaegaeg', 'geagage', 'other', 'geagaeg', 3, 'agdasgea', 'geagas'),
+(4, 'testuser3', 'feasgaeg', 'organizer', 'geagaega', 'geagaseg', 'gaegasg', 'male', 'gasegasgeagda', 1, 'adgaegas', 'geagaeag'),
+(5, 'student1', '123456', 'participant', 'altahim', 'gaegagea', 'egasgdag', 'female', 'gasdga', 1, 'geaa', 'gaeaaega'),
+(6, 'prof1', '123456', 'organizer', 'nahida', 'feasfaes', 'feasf', 'male', 'feaf', 4, 'gaega', 'gaegas'),
+(7, 'default6', 'default123', 'organizer', 'tarik', 'efad', 'adgfasg', 'female', 'bscs', 2, 'd', 'asgdagas@hgmai.vados'),
+(8, 'default7', 'default123', 'participant', 'shook', 'ageage', 'shads', 'male', 'bscs', 5, 'ad', 'user7@dgnaonae'),
+(9, 'default8', 'default123', 'administrator', 'turokad', 'vcdx', 'taesda', 'male', 'adt', 3, 'da', 'turok8@takdla.dagas'),
+(10, 'default9', 'default123', 'administrator', 'teadg', 'eag', 'dgae', 'female', 'adga', 5, 'ad5', 'etstae@agda9.fads'),
+(11, 'default10', 'default123', 'organizer', 'egfaf', 'geag', 'geagae', 'other', 'gdaeg', 15, 'asf', 'feafa@gadgadg.vas'),
+(12, 'default11', 'default123', 'organizer', 'adg', 'aeg', 'aeg', 'other', 'daadg', 3, '5', 'agda@agdsfa.adg'),
+(13, 'default12', 'default123', 'participant', 'aega', 'agd', 'ag', 'female', 'adgs', 3, 'adga', 'adfaae@gadfga.adg'),
+(14, 'admin', 'admin', 'administrator', 'admin first', 'admin last', 'admin middle', 'male', 'BSIS NS', 4, 'C', 'admin@admin.com');
 
 -- --------------------------------------------------------
 
@@ -160,7 +166,7 @@ ALTER TABLE `report`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `user_feedback`
