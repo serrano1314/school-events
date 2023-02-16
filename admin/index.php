@@ -3,7 +3,14 @@
     session_start();
 
     if(isset($_SESSION['userdata'])){ 
-        
+        include 'db_connect.php';
+        echo 'Welcome '.$_SESSION['userdata']['user_type'].' ';
+        echo $_SESSION['userdata']['first_name']; 
+
+        $sql = "SELECT * from users";
+        if ($result = mysqli_query($con, $sql)) {
+            $rowcount = mysqli_num_rows( $result );
+        }
         echo 'logged in';
     }else{
         header("location: index.php");
@@ -27,20 +34,13 @@
     <main id="main-content">
         <h1>
             <?php  
-                include_once('db_connect.php');
-                echo 'Welcome '.$_SESSION['userdata']['user_type'].' ';
-                echo $_SESSION['userdata']['first_name']; 
-
-                $sql = "SELECT * from users";
-                if ($result = mysqli_query($con, $sql)) {
-                    $rowcount = mysqli_num_rows( $result );
-                }
+                
             ?>
         </h1>
         <section id='manage-user'>
             <div id="add-user">
                 <h2>Add User</h2>
-                <form action="add_user.php">
+                <form action="add_user.php" method="POST">
                 <label for="uname">Username:</label>
                 <input type="text" id="uname" name="username" value="default<?php echo $rowcount+1; ?>"><br>
 
@@ -58,7 +58,7 @@
                 <input type="text" id="lname" name="last_name"><br>
                 
                 <label for="gender">gender:</label>
-                    <select name="gender" id="gender">
+                <select name="gender" id="gender">
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                     <option value="other">Other</option>
@@ -74,16 +74,69 @@
                 <input type="text" id="section" name="section"><br>
 
                 <label for="user-type">User Type:</label>
-                    <select name="user_type" id="user-type">
+                <select name="user_type" id="user-type">
                     <option value="administrator">Admin</option>
-                    <option value="orgaznizer">Orgaznizer</option>
+                    <option value="organizer">Organizer</option>
                     <option value="participant">Participant</option>
                 </select><br>
-
-                
-
+                <button type="submit" name="submit">Add User</button>
                 </form>
             </div>
+        </section>
+
+
+        <section id="display-user">
+            <h2>User List</h2>
+            <style>
+                table, th, td {
+                    border:1px solid black;
+                    border-collapse: collapse;
+                }
+            </style>
+
+            <table>
+                <tr>
+                    <th>id</th>
+                    <th>username</th>
+                    <th>user type</th>
+                    <th>full name</th>
+                    <th>gender</th>
+                    <th>course/yr/sec</th>
+                    <th>email</th>
+                </tr>
+                <?php
+                    while($users_row_data = mysqli_fetch_assoc($result)){
+                        $user_id = $users_row_data['id'];
+                        $user_username = $users_row_data['username'];
+                        $user_usertype = $users_row_data['user_type'];
+                        $user_fullname = $users_row_data['first_name'].' '.$users_row_data['last_name'];
+                        $user_gender = $users_row_data['gender'];
+                        $user_course_yr_sec = $users_row_data['course'].' '.$users_row_data['year'].' '.$users_row_data['section'];
+                        $user_email = $users_row_data['email'];
+
+                        echo '
+                            <tr>
+                                <td>'.$user_id.'</td>
+                                <td>'.$user_username.'</td>
+                                <td>'.$user_usertype.'</td>
+                                <td>'.$user_fullname.'</td>
+                                <td>'.$user_gender.'</td>
+                                <td>'.$user_course_yr_sec.'</td>
+                                <td>'.$user_email.'</td>
+                            </tr>
+                        ';
+                    }
+                ?>
+                <tr>
+                    <td>testid</td>
+                    <td>testusername</td>
+                    <td>testusertype</td>
+                    <td>testfullname</td>
+                    <td>testgender</td>
+                    <td>testcorYrSec</td>
+                    <td>testemail</td>
+                </tr>
+            </table>
         </section>
     </main>
     <footer>
