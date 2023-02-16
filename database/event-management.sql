@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 13, 2023 at 03:15 AM
+-- Generation Time: Feb 16, 2023 at 01:34 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -68,7 +68,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `user_type` int(11) NOT NULL,
+  `user_type` enum('admin','organizer','participant') NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `middle_name` varchar(255) NOT NULL,
@@ -84,11 +84,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `user_type`, `first_name`, `last_name`, `middle_name`, `gender`, `course`, `year`, `section`, `email`) VALUES
-(1, 'testuser1', 'testpassword', 1, 'steven', 'serrano', 'portacio', 'm', 'bsis-ns', 4, '4c', 'steven.serrano@tup.edu.ph'),
-(3, 'testuser2', 'rasdtagar', 2, 'aefafeaf', 'gaegaeg', 'geagage', 'o', 'geagaeg', 3, 'agdasgea', 'geagas'),
-(4, 'testuser3', 'feasgaeg', 2, 'geagaega', 'geagaseg', 'gaegasg', 'f', 'gasegasgeagda', 1, 'adgaegas', 'geagaeag'),
-(5, 'student1', '123456', 3, 'altahim', 'gaegagea', 'egasgdag', 'm', 'gasdga', 1, 'geaa', 'gaeaaega'),
-(6, 'prof1', '123456', 2, 'nahida', 'feasfaes', 'feasf', 'f', 'feaf', 4, 'gaega', 'gaegas');
+(1, 'testuser1', '123', 'admin', 'steven', 'serrano', 'portacio', 'm', 'bsis-ns', 4, '4c', 'steven.serrano@tup.edu.ph'),
+(3, 'testuser2', 'rasdtagar', 'organizer', 'aefafeaf', 'gaegaeg', 'geagage', 'o', 'geagaeg', 3, 'agdasgea', 'geagas'),
+(4, 'testuser3', 'feasgaeg', 'organizer', 'geagaega', 'geagaseg', 'gaegasg', 'f', 'gasegasgeagda', 1, 'adgaegas', 'geagaeag'),
+(5, 'student1', '123456', 'participant', 'altahim', 'gaegagea', 'egasgdag', 'm', 'gasdga', 1, 'geaa', 'gaeaaega'),
+(6, 'prof1', '123456', 'organizer', 'nahida', 'feasfaes', 'feasf', 'f', 'feaf', 4, 'gaega', 'gaegas');
 
 -- --------------------------------------------------------
 
@@ -127,7 +127,9 @@ ALTER TABLE `report`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`);
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `username_2` (`username`,`email`),
+  ADD UNIQUE KEY `username_3` (`username`);
 
 --
 -- Indexes for table `user_feedback`
