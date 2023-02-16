@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2023 at 01:34 AM
+-- Generation Time: Feb 16, 2023 at 02:41 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -68,11 +68,11 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `user_type` enum('admin','organizer','participant') NOT NULL,
+  `user_type` enum('administrator','organizer','participant') NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `middle_name` varchar(255) NOT NULL,
-  `gender` enum('m','f','o') NOT NULL,
+  `gender` enum('male','female','other') NOT NULL,
   `course` varchar(100) NOT NULL,
   `year` int(11) NOT NULL,
   `section` varchar(100) NOT NULL,
@@ -84,11 +84,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `user_type`, `first_name`, `last_name`, `middle_name`, `gender`, `course`, `year`, `section`, `email`) VALUES
-(1, 'testuser1', '123', 'admin', 'steven', 'serrano', 'portacio', 'm', 'bsis-ns', 4, '4c', 'steven.serrano@tup.edu.ph'),
-(3, 'testuser2', 'rasdtagar', 'organizer', 'aefafeaf', 'gaegaeg', 'geagage', 'o', 'geagaeg', 3, 'agdasgea', 'geagas'),
-(4, 'testuser3', 'feasgaeg', 'organizer', 'geagaega', 'geagaseg', 'gaegasg', 'f', 'gasegasgeagda', 1, 'adgaegas', 'geagaeag'),
-(5, 'student1', '123456', 'participant', 'altahim', 'gaegagea', 'egasgdag', 'm', 'gasdga', 1, 'geaa', 'gaeaaega'),
-(6, 'prof1', '123456', 'organizer', 'nahida', 'feasfaes', 'feasf', 'f', 'feaf', 4, 'gaega', 'gaegas');
+(1, 'testuser1', '123', '', 'steven', 'serrano', 'portacio', '', 'bsis-ns', 4, 'c', 'steven.serrano@tup.edu.ph'),
+(3, 'testuser2', 'rasdtagar', 'organizer', 'aefafeaf', 'gaegaeg', 'geagage', '', 'geagaeg', 3, 'agdasgea', 'geagas'),
+(4, 'testuser3', 'feasgaeg', 'organizer', 'geagaega', 'geagaseg', 'gaegasg', '', 'gasegasgeagda', 1, 'adgaegas', 'geagaeag'),
+(5, 'student1', '123456', 'participant', 'altahim', 'gaegagea', 'egasgdag', '', 'gasdga', 1, 'geaa', 'gaeaaega'),
+(6, 'prof1', '123456', 'organizer', 'nahida', 'feasfaes', 'feasf', '', 'feaf', 4, 'gaega', 'gaegas'),
+(7, 'default6', 'default123', '', 'tarik', 'efad', 'adgfasg', '', 'bscs', 2, 'd', 'asgdagas@hgmai.vados'),
+(8, 'default7', 'default123', '', 'shook', 'ageage', 'shads', '', 'bscs', 5, 'ad', 'user7@dgnaonae');
 
 -- --------------------------------------------------------
 
@@ -158,7 +160,7 @@ ALTER TABLE `report`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user_feedback`
