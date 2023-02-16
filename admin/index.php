@@ -138,6 +138,11 @@
                 </tr>
             </table>
         </section>
+
+        <section id="edit-user">
+            <h2>Edit User</h2>
+
+        </section>
     </main>
     <footer>
         <!-- must include php here instead-->
