@@ -13,8 +13,8 @@
         $section = $_POST['section'];
         $user_type = $_POST['user_type'];
         
-        $sql = "INSERT INTO `users` (username,password,email,first_name,middle_name,last_name,gender,course,year,section,user_type) 
-        VALUES('$username','$password','$email','$first_name','$middle_name','$last_name','$gender','$course','$year','$section','$user_type')";
+        $sql = "INSERT INTO `users` (username,password,email,first_name,middle_name,last_name,gender,course,year,section,user_type,is_user_active) 
+        VALUES('$username','$password','$email','$first_name','$middle_name','$last_name','$gender','$course','$year','$section','$user_type',1)";
 
         $result = mysqli_query($con,$sql);
 
