@@ -103,9 +103,14 @@
                     <th>gender</th>
                     <th>course/yr/sec</th>
                     <th>email</th>
+                    <th>actions</th>
                 </tr>
+
                 <?php
-                    while($users_row_data = mysqli_fetch_assoc($result)){
+
+                    $sql = "SELECT * from users WHERE is_user_active = '1'";
+                    $active_users = mysqli_query($con, $sql);
+                    while($users_row_data = mysqli_fetch_assoc($active_users)){
                         $user_id = $users_row_data['id'];
                         $user_username = $users_row_data['username'];
                         $user_usertype = $users_row_data['user_type'];
@@ -123,6 +128,10 @@
                                 <td>'.$user_gender.'</td>
                                 <td>'.$user_course_yr_sec.'</td>
                                 <td>'.$user_email.'</td>
+                                <td>
+                                    <button><a href="update_user.php?id='.$user_id.'">Update</a></button>
+                                    <button><a href="delete_user.php?id='.$user_id.'">Delete</a></button>
+                                </td>
                             </tr>
                         ';
                     }
@@ -138,9 +147,6 @@
                 </tr>
             </table>
         </section>
-
-        <section id="edit-user">
-            <h2>Edit User</h2>
 
         </section>
     </main>
