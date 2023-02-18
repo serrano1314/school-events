@@ -110,6 +110,7 @@
 
                     $sql = "SELECT * from users WHERE is_user_active = '1'";
                     $active_users = mysqli_query($con, $sql);
+                    
                     while($users_row_data = mysqli_fetch_assoc($active_users)){
                         $user_id = $users_row_data['id'];
                         $user_username = $users_row_data['username'];
