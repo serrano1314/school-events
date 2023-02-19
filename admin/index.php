@@ -4,40 +4,33 @@
 
     if(isset($_SESSION['userdata'])){ 
         include 'db_connect.php';
-        echo 'Welcome '.$_SESSION['userdata']['user_type'].' ';
-        echo $_SESSION['userdata']['first_name']; 
 
         $sql = "SELECT * from users";
         if ($result = mysqli_query($con, $sql)) {
             $rowcount = mysqli_num_rows( $result );
         }
-        echo 'logged in';
+        
     }else{
         header("location: index.php");
         exit();
     }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
-    <link rel="stylesheet" href="../style.css">
-</head>
-<body>
-    <nav>
-        <a href="../logout.php">logout</a>
-        <!-- must include php here instead-->
-    </nav>
+<?php include 'header.php' ?>
     <main id="main-content">
         <h1>
             <?php  
                 
             ?>
         </h1>
-        <section id='manage-user'>
+        <section class="welcome-section" id='welcome-section'>
+            <?php
+                echo 'logged in <br/>';
+                echo 'Welcome '.$_SESSION['userdata']['user_type'].' ';
+                echo $_SESSION['userdata']['first_name']; 
+            
+            ?>
+        </section>
+        <section class="manage-user" id='manage-user'>
             <div id="add-user">
                 <h2>Add User</h2>
                 <form action="add_user.php" method="POST">
@@ -85,7 +78,7 @@
         </section>
 
 
-        <section id="display-user">
+        <section class="display-user" id="display-user">
             <h2>User List</h2>
             <style>
                 table, th, td {
@@ -147,12 +140,22 @@
                     <td>testemail</td>
                 </tr>
             </table>
+        <section class="test-section" id="testsection">
+            <h2>test section</h2>
+
         </section>
+        
+
+        <section class="test-section2" id="testsection2">
+            <h2>test section 2</h2>
+
+        </section>
+
+        <section class="test-section3" id="testsection3">
+            <h2>test section 3</h2>
 
         </section>
     </main>
-    <footer>
-        <!-- must include php here instead-->
-    </footer>
-</body>
-</html>
+    <?php
+        include 'footer.php';
+    ?>

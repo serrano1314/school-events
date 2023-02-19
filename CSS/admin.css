@@ -124,3 +124,33 @@ li.nav:hover {
     box-shadow: 0 10px 10px rgba(0, 0, 0, .5);
     border-radius: 10px;
 }
+
+.welcome-section,
+.manage-user,
+.display-user,
+.test-section,
+.test-section2,
+.test-section3{
+    padding-top: 100px;
+    height: 100vh;
+}
+
+.welcome-section{
+    background-color: aliceblue;
+    height: 20vh;
+}
+.manage-user{
+    background-color: antiquewhite;
+}
+.display-user{
+    background-color: aliceblue;
+}
+.test-section{
+    background-color: antiquewhite;
+}
+.test-section2{
+    background-color: aliceblue;
+}
+.test-section3{
+    background-color: antiquewhite;
+}
