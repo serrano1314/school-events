@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2023 at 03:08 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.0.25
+-- Generation Time: Feb 18, 2023 at 09:07 AM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,6 +24,42 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `equipments`
+--
+
+CREATE TABLE `equipments` (
+  `id` int(11) NOT NULL,
+  `equipment` varchar(100) NOT NULL,
+  `equipment_no` int(11) NOT NULL,
+  `remaining_no` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `equipments`
+--
+
+INSERT INTO `equipments` (`id`, `equipment`, `equipment_no`, `remaining_no`) VALUES
+(3, 'Chair', 60, 60),
+(4, 'Tables', 30, 30),
+(5, 'Speakers', 10, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `equipment_in_used`
+--
+
+CREATE TABLE `equipment_in_used` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `tables` int(11) NOT NULL,
+  `chairs` int(11) NOT NULL,
+  `speakers` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `event`
 --
 
@@ -32,13 +68,20 @@ CREATE TABLE `event` (
   `user_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `start_datetime` int(11) NOT NULL,
-  `end_datetime` int(11) NOT NULL,
-  `location` int(11) NOT NULL,
+  `start_datetime` datetime NOT NULL,
+  `end_datetime` datetime NOT NULL,
+  `location` varchar(100) NOT NULL,
   `type` int(11) NOT NULL,
   `equipments` int(11) NOT NULL,
   `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `event`
+--
+
+INSERT INTO `event` (`id`, `user_id`, `title`, `description`, `start_datetime`, `end_datetime`, `location`, `type`, `equipments`, `status`) VALUES
+(3, 1, 'Teachers Meeting', 'All COS teachers should attend', '2023-07-02 07:33:00', '2023-07-02 07:33:00', 'IRTC Builing', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -56,7 +99,7 @@ CREATE TABLE `report` (
   `num_female_attendee` int(11) NOT NULL,
   `num_other_attendee` int(11) NOT NULL,
   `average_rating` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -78,7 +121,7 @@ CREATE TABLE `users` (
   `section` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `is_user_active` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
@@ -110,11 +153,23 @@ CREATE TABLE `user_feedback` (
   `user_id` int(11) NOT NULL,
   `rating` int(10) NOT NULL,
   `comment` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `equipments`
+--
+ALTER TABLE `equipments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `equipment_in_used`
+--
+ALTER TABLE `equipment_in_used`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `event`
@@ -152,10 +207,22 @@ ALTER TABLE `user_feedback`
 --
 
 --
+-- AUTO_INCREMENT for table `equipments`
+--
+ALTER TABLE `equipments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `equipment_in_used`
+--
+ALTER TABLE `equipment_in_used`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `report`

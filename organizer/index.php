@@ -59,19 +59,19 @@
         <input type="checkbox" data-target="1">Chairs
         <div style="display: none;" data-id="1">
         <label for="chairs">Chairs</label>
-        <input type="number" id="chairs" name="chairs" min=0>
+        <input type="number" id="chairs" name="chairs" min=0 value=0>
         </div>
         
         <input type="checkbox" data-target="2">Table
         <div style="display: none;" data-id="2">
         <label for="table">Table</label>
-        <input type="number" id="table" name="table" min=0>
+        <input type="number" id="table" name="table" min=0 value=0>
         </div>
     
         <input type="checkbox" data-target="3">Speakers
         <div style="display: none;" data-id="3">
         <label for="table">Spearker</label>
-        <input type="number" id="table" name="speaker" min=0>
+        <input type="number" id="table" name="speaker" min=0 value=0>
         </div>
         
         <input type="hidden" name="status" value="1">
@@ -96,7 +96,7 @@
                 </tr>
                 <?php
                     include '../admin/db_connect.php';
-                    $sql = "SELECT * from event";
+                    $sql = "SELECT * from event WHERE status > 0;";
                     $events = mysqli_query($con, $sql);
                     
                     while($events_row_data = mysqli_fetch_assoc($events)){
@@ -120,8 +120,8 @@
                                 <td>'.$event_type.'</td>
                                 <td>'.$event_status.'</td>
                                 <td>
-                                    <button><a href="update_event.php?id='.$event_id.'">Update</a></button>
-                                    <button><a href="delete_event.php?id='.$event_id.'">Delete</a></button>
+                                    <button><a href="update_event.php?event_id='.$event_id.'">Update</a></button>
+                                    <button><a href="delete_event.php?event_id='.$event_id.'">Delete</a></button>
                                 </td>
                             </tr>
                         ';
