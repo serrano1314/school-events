@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 18, 2023 at 09:07 AM
+-- Generation Time: Feb 21, 2023 at 08:02 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -81,7 +81,8 @@ CREATE TABLE `event` (
 --
 
 INSERT INTO `event` (`id`, `user_id`, `title`, `description`, `start_datetime`, `end_datetime`, `location`, `type`, `equipments`, `status`) VALUES
-(3, 1, 'Teachers Meeting', 'All COS teachers should attend', '2023-07-02 07:33:00', '2023-07-02 07:33:00', 'IRTC Builing', 1, 0, 1);
+(3, 1, 'Teachers Meeting', 'All COS teachers should attend', '2023-07-02 07:33:00', '2023-07-02 07:33:00', 'IRTC Builing', 1, 0, 1),
+(4, 1, 'SIT MEETING', 'ALL OJT STUDENT MUST ATTEND', '2023-02-24 15:00:00', '2023-02-24 16:00:00', 'IRTC Builing', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -222,7 +223,7 @@ ALTER TABLE `equipment_in_used`
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `report`

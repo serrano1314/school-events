@@ -1,7 +1,6 @@
-
 <?php 
     session_start();
-
+    include '../admin/db_connect.php';
     if(isset($_SESSION['userdata'])){ 
         echo 'Welcome '.$_SESSION['userdata']['user_type'].' ';
         echo $_SESSION['userdata']['first_name'];
@@ -18,7 +17,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Organizer</title>
-    <link rel="stylesheet" href="../style.css">
+    <!-- <link rel="stylesheet" href="../style.css"> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.1/main.min.css" rel="stylesheet"></link> -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.1/index.global.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
@@ -26,7 +27,7 @@
 
 
     <h3>Add Event</h3>
-    <form action="add_event.php" method="POSt">
+    <form action="add_event.php" method="POST">
         <label for="title">Event Title:</label>
         <input type="text" name="title" id="title" required><br>
 
@@ -55,32 +56,34 @@
             <option value="4">Others</option>
         </select>
 
+        
         <h4>Equipments</h4>
-        <input type="checkbox" data-target="1">Chairs
-        <div style="display: none;" data-id="1">
-        <label for="chairs">Chairs</label>
-        <input type="number" id="chairs" name="chairs" min=0 value=0>
-        </div>
+        <?php 
+            $equipments = array();
+            $sql = 'SELECT * FROM equipments';
+            $result = mysqli_query($con, $sql);
+
+            while($equipment_data = mysqli_fetch_assoc($result)){
+                array_push($equipments, $equipment_data);
+                echo '<label for="'.$equipment_data['equipment'].'">'.$equipment_data['equipment'].': </label>';
+                echo '<input type="number" id="'.$equipment_data['equipment'].'" name="'.$equipment_data['equipment'].'" min=0 max='.$equipment_data['remaining_no'].' value=0><br>';
+            }
+            $_SESSION['avail_equip'] = $equipments;
+            
+            $sql = "SELECT id FROM event ORDER BY id DESC LIMIT 1";
+            $result = mysqli_query($con, $sql);
+            $last_event_id = mysqli_fetch_assoc($result)['id'];
         
-        <input type="checkbox" data-target="2">Table
-        <div style="display: none;" data-id="2">
-        <label for="table">Table</label>
-        <input type="number" id="table" name="table" min=0 value=0>
-        </div>
-    
-        <input type="checkbox" data-target="3">Speakers
-        <div style="display: none;" data-id="3">
-        <label for="table">Spearker</label>
-        <input type="number" id="table" name="speaker" min=0 value=0>
-        </div>
-        
+        ?>
+        <input type="hidden" name="event_id" value=<?php echo $last_event_id; ?>>
         <input type="hidden" name="status" value="1">
         <br>
-        <button type="submit" name="submit">Add Event</button>
+        <button type="submit" name="submit" id="addEvent">Add Event</button>
 
     </form>
 
 
+    <div id='calendar'></div>
 
     <div class="event_content">
     <table>
@@ -95,10 +98,9 @@
                     <th>Status</th>
                 </tr>
                 <?php
-                    include '../admin/db_connect.php';
-                    $sql = "SELECT * from event WHERE status > 0;";
+                    $sql = "SELECT * FROM event WHERE status > 0;";
                     $events = mysqli_query($con, $sql);
-                    
+                    $list = array();
                     while($events_row_data = mysqli_fetch_assoc($events)){
                         $event_id = $events_row_data['id'];
                         $event_title = $events_row_data['title'];
@@ -108,14 +110,21 @@
                         $event_location = $events_row_data['location'];
                         $event_type = $events_row_data['type'];
                         $event_status = $events_row_data['status'];
+                        
+                        $obj = new stdClass();
+                        $obj->title = $event_title;
+                        $obj->start = $event_start;
+                        $obj->end = $event_end;
 
+                        array_push($list, $obj);
+                        
                         echo '
                             <tr>
                                 <td>'.$event_id.'</td>
-                                <td>'.$event_title.'</td>
+                                <td class="eventName">'.$event_title.'</td>
                                 <td>'.$event_description.'</td>
-                                <td>'.$event_start.'</td>
-                                <td>'.$event_end.'</td>
+                                <td class="eventStart">'.$event_start.'</td>
+                                <td class="eventEnd">'.$event_end.'</td>
                                 <td>'.$event_location.'</td>
                                 <td>'.$event_type.'</td>
                                 <td>'.$event_status.'</td>
@@ -130,9 +139,6 @@
             </table>
     </div>
 </body>
-<script>
-    $('input[type=checkbox]').change(function(){
-  $('div[data-id='+$(this).data('target')+']').toggle()
-})
-</script>
+<script src="../script.js"></script>
+
 </html>
