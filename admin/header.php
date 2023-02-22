@@ -8,25 +8,20 @@
     <title>School Events Management System</title>
 
     
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../CSS/admintest.css">
-    <link
-      href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet">
-    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admintest.css">
+    <!-- <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet"> -->
+
+    <!-- bootstrap  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+
     <script src="https://kit.fontawesome.com/4667e2671f.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
 
     
 </head>
 <body>
-    <nav >
-        <ul class="sidenav">
-            <li class="logo"><a id="logo" href=""><img src="../images/logo.png" alt=""><span class="nav-item">Event Management</span></a></li>
-            <li class="nav"><a href="#manage-user"><i class="fa fa-solid fa-user"></i><span class="nav-item">Manage User</span></a></li>
-            <li class="nav"><a href="#display-user"><i class="fa fa-solid fa-user"></i><span class="nav-item">Display Users</span></a></li>
-            <li class="nav"><a href="#testsection"><i class="fa fa-solid fa-user"></i><span class="nav-item">Test Section</span></a></li>
-            <li class="nav"><a href="#testsection2"><i class="fa fa-solid fa-user"></i><span class="nav-item">Test Section2</span></a></li>
-            <li class="nav"><a href="#testsection3"><i class="fa fa-solid fa-user"></i><span class="nav-item">Test Section3</span></a></li>
-            <li class="nav logout"><a href="../logout.php"><i class="fa fa-solid fa-arrow-right-from-bracket"></i><span class="nav-item">Logout</span></a></li>
-        </ul>
-    </nav>
+    
