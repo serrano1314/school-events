@@ -59,23 +59,23 @@
         
         <h4>Equipments</h4>
         <?php 
-            $equipments = array();
             $sql = 'SELECT * FROM equipments';
             $result = mysqli_query($con, $sql);
 
             while($equipment_data = mysqli_fetch_assoc($result)){
-                array_push($equipments, $equipment_data);
+                
                 echo '<label for="'.$equipment_data['equipment'].'">'.$equipment_data['equipment'].': </label>';
-                echo '<input type="number" id="'.$equipment_data['equipment'].'" name="'.$equipment_data['equipment'].'" min=0 max='.$equipment_data['remaining_no'].' value=0><br>';
+                echo '<input type="number" id="'.$equipment_data['equipment'].'" name="equipments_List['.$equipment_data['equipment'].']" min=0 max='.$equipment_data['remaining_no'].' value=0><br>';
             }
-            $_SESSION['avail_equip'] = $equipments;
+            
             
             $sql = "SELECT id FROM event ORDER BY id DESC LIMIT 1";
             $result = mysqli_query($con, $sql);
-            $last_event_id = mysqli_fetch_assoc($result)['id'];
+            $last_event = mysqli_fetch_assoc($result);
+            
         
         ?>
-        <input type="hidden" name="event_id" value=<?php echo $last_event_id; ?>>
+        <input type="hidden" name="event_id" value=<?php echo ($last_event) ?$last_event['id']+1 : 1; ?>>
         <input type="hidden" name="status" value="1">
         <br>
         <button type="submit" name="submit" id="addEvent">Add Event</button>
@@ -96,6 +96,7 @@
                     <th>Location</th>
                     <th>Type</th>
                     <th>Status</th>
+                    <th>Actions</th>
                 </tr>
                 <?php
                     $sql = "SELECT * FROM event WHERE status > 0;";

@@ -51,10 +51,10 @@ INSERT INTO `equipments` (`id`, `equipment`, `equipment_no`, `remaining_no`) VAL
 
 CREATE TABLE `equipment_in_used` (
   `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `tables` int(11) NOT NULL,
-  `chairs` int(11) NOT NULL,
-  `speakers` int(11) NOT NULL
+  `event_id` int(11) NOT NULL,
+  `Tables` int(11) NOT NULL,
+  `Chair` int(11) NOT NULL,
+  `Speakers` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -79,10 +79,6 @@ CREATE TABLE `event` (
 --
 -- Dumping data for table `event`
 --
-
-INSERT INTO `event` (`id`, `user_id`, `title`, `description`, `start_datetime`, `end_datetime`, `location`, `type`, `equipments`, `status`) VALUES
-(3, 1, 'Teachers Meeting', 'All COS teachers should attend', '2023-07-02 07:33:00', '2023-07-02 07:33:00', 'IRTC Builing', 1, 0, 1),
-(4, 1, 'SIT MEETING', 'ALL OJT STUDENT MUST ATTEND', '2023-02-24 15:00:00', '2023-02-24 16:00:00', 'IRTC Builing', 1, 1, 1);
 
 -- --------------------------------------------------------
 

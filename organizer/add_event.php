@@ -18,31 +18,49 @@ if(isset($_SESSION['userdata'])){
         $event_Status = $_POST['status'];
         $event_id = $_POST['event_id'];
 
-        echo $event_end;
+        $equipments_values = array_values($_POST['equipments_List']);
+        $equipments_keys = array_keys($_POST['equipments_List']);
         
+
         $sql = "SELECT * FROM equipment_in_used;";
         $result = mysqli_query($con,$sql);
 
         $equipment_id = mysqli_num_rows( $result )+1;
         
         
-        $sql = "INSERT INTO `event` (user_id, title, description, start_datetime, end_datetime, location, type, equipments, status)
-        VALUES('$user_id', '$event_title', '$event_description', '$event_start', '$event_end', '$event_location', '$event_type','$equipment_id', '$event_Status')";
+        $sql = "INSERT INTO `event` (id, user_id, title, description, start_datetime, end_datetime, location, type, equipments, status)
+        VALUES('$event_id','$user_id', '$event_title', '$event_description', '$event_start', '$event_end', '$event_location', '$event_type','$equipment_id', '$event_Status')";
         
         $result = mysqli_query($con,$sql);
         if($result){
-            // $sql_values = array($equipment_id)
+            // add equipments in used to the database
+            $temp_keys = $equipments_keys;
+            $temp_values = $equipments_values;
+            array_unshift($temp_values, $equipment_id, $event_id);
+            array_unshift($temp_keys, "id", "event_id");
             
-            // $sql = "INSERT INTO `equipment_in_used` (id, event_id, tables, chairs, speakers)
-            // VALUES('$equipment_id','$event_id', "."'$equipment_table', '$equipment_chairs', '$equipment_speakers'".")";
-            // $result = mysqli_query($con,$sql);
-            // if($result){
+            $sql = "INSERT INTO `equipment_in_used` (" . implode(', ',$temp_keys) . ") 
+            VALUES (" . implode(', ',$temp_values) . ")";
+            $result = mysqli_query($con,$sql);
+            if($result){
+                $sql = "SELECT remaining_no FROM equipments";
+                $result = mysqli_query($con,$sql);
+                if($result){
+                    $remain = mysqli_fetch_all($result);
+                    for($i=0; $i<count($equipments_keys); $i++){
+                        $sql = "UPDATE `equipments` SET `remaining_no` = (`remaining_no` -".$equipments_values[$i].") WHERE equipment='".$equipments_keys[$i]."';";
+                        $result = mysqli_query($con,$sql);
+                        if($result){
+                            continue;
+                        }
+                    }
+                    
+                header('location:index.php');
+                }
                 
-            //     echo 'add event succes';
-            //     header('location:index.php');
-            // }
-            echo 'add event succes';
-            header('location:index.php');
+                
+                
+            }
 
         }else{
             die(mysqli_error($con));

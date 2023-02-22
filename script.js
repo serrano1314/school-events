@@ -33,7 +33,7 @@ function getData(){
     for(i=0; i<event_name.length; i++){
       data.push({title: event_name[i].innerText, start: event_start[i].innerText, end: event_end[i].innerText});
     }
-    console.log(data);
+    
     display_calendar(data)
 
 }
