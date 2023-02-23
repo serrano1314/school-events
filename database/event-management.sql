@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2023 at 08:02 AM
+-- Generation Time: Feb 23, 2023 at 01:03 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -39,9 +39,9 @@ CREATE TABLE `equipments` (
 --
 
 INSERT INTO `equipments` (`id`, `equipment`, `equipment_no`, `remaining_no`) VALUES
-(3, 'Chair', 60, 60),
-(4, 'Tables', 30, 30),
-(5, 'Speakers', 10, 10);
+(3, 'Chair', 60, 30),
+(4, 'Tables', 30, 22),
+(5, 'Speakers', 10, 6);
 
 -- --------------------------------------------------------
 
@@ -52,10 +52,18 @@ INSERT INTO `equipments` (`id`, `equipment`, `equipment_no`, `remaining_no`) VAL
 CREATE TABLE `equipment_in_used` (
   `id` int(11) NOT NULL,
   `event_id` int(11) NOT NULL,
-  `Tables` int(11) NOT NULL,
   `Chair` int(11) NOT NULL,
+  `Tables` int(11) NOT NULL,
   `Speakers` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `equipment_in_used`
+--
+
+INSERT INTO `equipment_in_used` (`id`, `event_id`, `Chair`, `Tables`, `Speakers`) VALUES
+(1, 1, 15, 3, 2),
+(2, 2, 15, 5, 2);
 
 -- --------------------------------------------------------
 
@@ -79,6 +87,10 @@ CREATE TABLE `event` (
 --
 -- Dumping data for table `event`
 --
+
+INSERT INTO `event` (`id`, `user_id`, `title`, `description`, `start_datetime`, `end_datetime`, `location`, `type`, `equipments`, `status`) VALUES
+(1, 1, 'Meeting lang ', 'All COS teachers should attend', '2023-02-23 19:55:00', '2023-02-23 19:55:00', 'IRTC', 1, 1, 1),
+(2, 1, 'Year End Party', 'Lets have a graduation ball today', '2023-02-24 19:56:00', '2023-02-24 20:56:00', 'Gymnasium', 2, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -213,7 +225,7 @@ ALTER TABLE `equipments`
 -- AUTO_INCREMENT for table `equipment_in_used`
 --
 ALTER TABLE `equipment_in_used`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `event`

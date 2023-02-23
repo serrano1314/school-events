@@ -9,7 +9,7 @@
         $event_data = mysqli_fetch_assoc($result);
 
         $event_title = $event_data['title'];
-        $event_desc = $event_data['description'];
+        $event_description = $event_data['description'];
         $event_start = $event_data['start_datetime'];
         $event_end = $event_data['end_datetime'];
         $event_location = $event_data['location'];
@@ -19,8 +19,9 @@
     }
 ?>
 <?php 
+    include '../admin/db_connect.php';
     if(isset($_POST['submit'])){
-        echo "meron";
+        
         $event_title = $_POST['title'];
         $event_description = $_POST['description'];
         $event_start = $_POST['start_datetime'];
@@ -29,7 +30,59 @@
         $event_type = $_POST['type'];
         $event_Status = $_POST['status'];
         $event_id = $_POST['event_id'];
-        header('location:index.php');
+
+        $equipments_values = array_values($_POST['equipments_List']);
+        $equipments_keys = array_keys($_POST['equipments_List']);
+
+
+        
+        $sql = "SELECT * FROM equipment_in_used WHERE id=$event_id";
+        $result = mysqli_query($con,$sql);
+        $old_equipment_no = array_slice(mysqli_fetch_row($result),2);
+        
+        
+        $sql = "UPDATE `event` SET title='$event_title', description='$event_description', start_datetime='$event_start', end_datetime='$event_end', location='$event_location', type='$event_type', status='$event_Status'
+        WHERE id=$event_id";
+        
+        $result = mysqli_query($con,$sql);
+       
+        if($result){
+            $query = "";
+            // add equipments in used to the database
+            for($i=0; $i<count($equipments_keys); $i++){
+                $query .= $equipments_keys[$i].'=\''.$equipments_values[$i].'\'';
+                if($i+1< count($equipments_keys)){
+                    $query .= ', ';
+                }
+            }
+            
+            $sql = "UPDATE `equipment_in_used` SET $query
+            WHERE event_id=$event_id";
+            $result = mysqli_query($con,$sql);
+            if($result){
+                $sql = "SELECT remaining_no FROM equipments";
+                $result = mysqli_query($con,$sql);
+                if($result){
+                    $remain = mysqli_fetch_all($result);
+                    for($i=0; $i<count($equipments_keys); $i++){
+                        $sql = "UPDATE `equipments` SET `remaining_no` = (`remaining_no` -".$equipments_values[$i]-$old_equipment_no[$i].") WHERE equipment='".$equipments_keys[$i]."';";
+                        $result = mysqli_query($con,$sql);
+                        if($result){
+                            continue;
+                        }
+                    }
+                    
+                header('location:index.php');
+                }
+                
+                
+                
+            }
+
+        }else{
+            die(mysqli_error($con));
+        }
+        // header('location:index.php');
     }
 ?>
 <!DOCTYPE html>
@@ -49,7 +102,7 @@
         <input type="text" name="title" id="title" required value="<?php echo $event_title; ?>"><br>
 
         <label for="event_description">Event Description:</label>
-        <input type="text" name="description" id="event_description" required value="<?php echo $event_desc; ?>"><br>
+        <input type="text" name="description" id="event_description" required value="<?php echo $event_description; ?>"><br>
 
         <label for="eventStart">Event Start:</label>
         <input type="datetime-local" name="start_datetime" id="eventStart" value="<?php echo date('Y-m-d\TH:i', strtotime($event_start));   ?>"/><br>
@@ -88,12 +141,12 @@
             for($i=0; $i<count($equipments); $i++){
                 
                 echo '<label for="'.$equipments[$i][1].'">'.$equipments[$i][1].': </label>';
-                echo '<input type="number" id="'.$equipments[$i][1].'" name="equipments_List['.$equipments[$i][1].']" min=0 max='.end($equipments[$i]).' value='.$equipment_data[$i].'><br>';
+                echo '<input type="number" id="'.$equipments[$i][1].'" name="equipments_List['.$equipments[$i][1].']" min=0 max='.end($equipments[$i])+$equipment_data[$i].' value='.$equipment_data[$i].'><br>';
             }
             
         
         ?>
-        
+        <input type="hidden" name="event_id" value=<?php echo $event_id; ?>>
         <input type="hidden" name="status" value="1">
         <br>
         <button type="submit" name="submit">Update Event</button>
