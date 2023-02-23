@@ -1,6 +1,7 @@
 <?php 
+    include '../admin/db_connect.php';
     if(isset($_GET['event_id'])){
-        include '../admin/db_connect.php';
+        
         $event_id = $_GET['event_id'];
 
         $sql = "SELECT * FROM event WHERE id=$event_id";
@@ -13,7 +14,22 @@
         $event_end = $event_data['end_datetime'];
         $event_location = $event_data['location'];
         $event_type =$event_data['type'];
-        
+        $event_id = $event_data['id'];
+
+    }
+?>
+<?php 
+    if(isset($_POST['submit'])){
+        echo "meron";
+        $event_title = $_POST['title'];
+        $event_description = $_POST['description'];
+        $event_start = $_POST['start_datetime'];
+        $event_end = $_POST['end_datetime'];
+        $event_location = $_POST['location'];
+        $event_type = $_POST['type'];
+        $event_Status = $_POST['status'];
+        $event_id = $_POST['event_id'];
+        header('location:index.php');
     }
 ?>
 <!DOCTYPE html>
@@ -28,21 +44,21 @@
 </head>
 <body>
     <h3>Update Event</h3>
-    <form action="add_event.php" method="POSt">
+    <form action="update_event.php" method="POSt">
         <label for="title">Event Title:</label>
-        <input type="text" name="title" id="title" required><br>
+        <input type="text" name="title" id="title" required value="<?php echo $event_title; ?>"><br>
 
         <label for="event_description">Event Description:</label>
-        <input type="text" name="description" id="event_description" required><br>
+        <input type="text" name="description" id="event_description" required value="<?php echo $event_desc; ?>"><br>
 
         <label for="eventStart">Event Start:</label>
-        <input type="datetime-local" name="start_datetime" id="eventStart" value="2023-02-07T07:33"/><br>
+        <input type="datetime-local" name="start_datetime" id="eventStart" value="<?php echo date('Y-m-d\TH:i', strtotime($event_start));   ?>"/><br>
 
         <label for="eventStart">Event End:</label>
-        <input type="datetime-local" name="end_datetime" id="eventEnd" value="2023-02-07T07:33"/><br>
+        <input type="datetime-local" name="end_datetime" id="eventEnd" value="<?php echo date('Y-m-d\TH:i', strtotime($event_start));   ?>"/><br>
 
         <label for="location">Event Location:</label>
-        <input type="text" list="location" name="location" required/><br>
+        <input type="text" list="location" name="location" required value=<?php echo $event_location; ?>><br>
         <datalist id="location">
             <option value="Gymnasium">
             <option value="IRTC Builing">
@@ -51,34 +67,36 @@
 
         <label for="event_type">Event Type:</label>
         <select name="type" id="event_type"><br>
-            <option value="1">Meeting</option>
-            <option value="2">Organization Event</option>
-            <option value="3">Semester Kickoff</option>
-            <option value="4">Others</option>
+            <option value="1" <?php echo ($event_type == 1)? 'selected' : "";?>>Meeting</option>
+            <option value="2" <?php echo ($event_type == 2) ? 'selected': "hello";?>>Organization Event</option>
+            <option value="3" <?php echo ($event_type == 3) ? 'selected': "";?>>Semester Kickoff</option>
+            <option value="4" <?php echo ($event_type == 4) ? 'selected': "";?>>Others</option>
         </select>
 
         <h4>Equipments</h4>
-        <input type="checkbox" data-target="1">Chairs
-        <div style="display: none;" data-id="1">
-        <label for="chairs">Chairs</label>
-        <input type="number" id="chairs" name="chairs" min=0 value=0>
-        </div>
+        <?php 
+            // get equipments 
+            $sql = "SELECT * FROM equipments";
+            $result = mysqli_query($con, $sql);
+            $equipments = mysqli_fetch_all($result);
+            
+            $sql = 'SELECT * FROM equipment_in_used WHERE event_id='.$event_id;
+            $result = mysqli_query($con, $sql);
+            $equipment_data =array_slice(mysqli_fetch_row($result), 2);
+
+            
+            for($i=0; $i<count($equipments); $i++){
+                
+                echo '<label for="'.$equipments[$i][1].'">'.$equipments[$i][1].': </label>';
+                echo '<input type="number" id="'.$equipments[$i][1].'" name="equipments_List['.$equipments[$i][1].']" min=0 max='.end($equipments[$i]).' value='.$equipment_data[$i].'><br>';
+            }
+            
         
-        <input type="checkbox" data-target="2">Table
-        <div style="display: none;" data-id="2">
-        <label for="table">Table</label>
-        <input type="number" id="table" name="table" min=0 value=0>
-        </div>
-    
-        <input type="checkbox" data-target="3">Speakers
-        <div style="display: none;" data-id="3">
-        <label for="table">Spearker</label>
-        <input type="number" id="table" name="speaker" min=0 value=0>
-        </div>
+        ?>
         
         <input type="hidden" name="status" value="1">
         <br>
-        <button type="submit" name="submit">Add Event</button>
+        <button type="submit" name="submit">Update Event</button>
 
     </form>
     </div>

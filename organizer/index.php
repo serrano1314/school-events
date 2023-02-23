@@ -71,11 +71,11 @@
             
             $sql = "SELECT id FROM event ORDER BY id DESC LIMIT 1";
             $result = mysqli_query($con, $sql);
-            $last_event = mysqli_fetch_assoc($result);
+            $last_event = mysqli_fetch_row($result);
             
         
         ?>
-        <input type="hidden" name="event_id" value=<?php echo ($last_event) ?$last_event['id']+1 : 1; ?>>
+        <input type="hidden" name="event_id" value=<?php echo ($last_event) ?$last_event[0]+1 : 1; ?>>
         <input type="hidden" name="status" value="1">
         <br>
         <button type="submit" name="submit" id="addEvent">Add Event</button>
