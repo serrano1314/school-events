@@ -50,60 +50,61 @@
                     </div>
                     <div class="modal-body">
                         <!-- add user form -->
-                        <div class="form-group">
-                            <label for="uname">Username:</label>
-                            <input class="form-control" type="text" id="uname" name="username" value="default<?php echo $rowcount+1; ?>">
-                        </div>
+                        <form id="addUserForm">
+                            <div class="form-group">
+                                <label for="uname">Username:</label>
+                                <input class="form-control" type="text" id="uname" name="username" value="default<?php echo $rowcount+1; ?>">
+                            </div>
 
-                        <div class="form-group">
-                            <label for="password">Password:</label>
-                            <input class="form-control" type="password" id="password" name="password" value="default123">
-                        </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input class="form-control" type="password" id="password" name="password" value="default123">
+                            </div>
 
-                        <div class="form-group">
-                            <label for="email">Email:</label>
-                            <input class="form-control" type="email" id="email" name="email">
-                        </div>
-                        <div class="form-group">
-                            <label for="fname">First name:</label>
-                            <input class="form-control" type="text" id="fname" name="first_name">
-                            <label for="mname">Middle name:</label>
-                            <input class="form-control" type="text" id="mname" name="middle_name">
-                            <label for="lname">Last name:</label>
-                            <input class="form-control" type="text" id="lname" name="last_name">
-                        </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input class="form-control" type="email" id="email" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="fname">First name:</label>
+                                <input class="form-control" type="text" id="fname" name="first_name">
+                                <label for="mname">Middle name:</label>
+                                <input class="form-control" type="text" id="mname" name="middle_name">
+                                <label for="lname">Last name:</label>
+                                <input class="form-control" type="text" id="lname" name="last_name">
+                            </div>
 
-                        <div class="form-group">
-                            <label for="gender">Gender:</label>
-                            <select class="form-control" name="gender" id="gender">
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="course">Course:</label>
-                            <input class="form-control" type="text" id="course" name="course">
+                            <div class="form-group">
+                                <label for="gender">Gender:</label>
+                                <select class="form-control" name="gender" id="gender">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="course">Course:</label>
+                                <input class="form-control" type="text" id="course" name="course">
 
-                            <label for="year">Year:</label>
-                            <input class="form-control" type="number" id="year" name="year">
+                                <label for="year">Year:</label>
+                                <input class="form-control" type="number" id="year" name="year">
 
-                            <label for="section">Section:</label>
-                            <input class="form-control" type="text" id="section" name="section">
-                        </div>
+                                <label for="section">Section:</label>
+                                <input class="form-control" type="text" id="section" name="section">
+                            </div>
 
-                        <div class="form-group">
-                            <label for="user-type">User Type:</label>
-                            <select class="form-control" name="user_type" id="user-type">
-                                <option value="administrator">Admin</option>
-                                <option value="organizer">Organizer</option>
-                                <option value="participant">Participant</option>
-                            </select>
-                        </div>
-
+                            <div class="form-group">
+                                <label for="user-type">User Type:</label>
+                                <select class="form-control" name="user_type" id="user-type">
+                                    <option value="administrator">Admin</option>
+                                    <option value="organizer">Organizer</option>
+                                    <option value="participant">Participant</option>
+                                </select>
+                            </div>
+                        </form>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" onclick="addUser()" class="btn btn-primary">Add User</button>
+                        <button type="submit" id="addUserButton" class="btn btn-primary">Add User</button>
                     </div>
                     </div>
                 </div>
@@ -123,31 +124,32 @@
                         <div class="modal-body">
                             <!-- update user form -->
                             <div class="form-group">
-                                <label for="uname">Username:</label>
-                                <input class="form-control" type="text" id="update_uname" name="username">
+                                <input type="hidden" id="update_user_id">
+                                <label for="update_uname">Username:</label>
+                                <input class="form-control" type="text" id="update_uname" name="update_uname">
                             </div>
 
                             <div class="form-group">
-                                <label for="password">Password:</label>
-                                <input class="form-control" type="password" id="update_password" name="password">
+                                <label for="update_password">Password:</label>
+                                <input class="form-control" type="password" id="update_password" name="update_password">
                             </div>
 
                             <div class="form-group">
-                                <label for="email">Email:</label>
-                                <input class="form-control" type="email" id="update_email" name="email">
+                                <label for="update_email">Email:</label>
+                                <input class="form-control" type="email" id="update_email" name="update_email">
                             </div>
                             <div class="form-group">
-                                <label for="fname">First name:</label>
-                                <input class="form-control" type="text" id="update_fname" name="first_name">
-                                <label for="mname">Middle name:</label>
-                                <input class="form-control" type="text" id="update_mname" name="middle_name">
-                                <label for="lname">Last name:</label>
-                                <input class="form-control" type="text" id="update_lname" name="last_name">
+                                <label for="update_fname">First name:</label>
+                                <input class="form-control" type="text" id="update_fname" name="update_fname">
+                                <label for="update_mname">Middle name:</label>
+                                <input class="form-control" type="text" id="update_mname" name="update_mname">
+                                <label for="update_lname">Last name:</label>
+                                <input class="form-control" type="text" id="update_lname" name="update_lname">
                             </div>
 
                             <div class="form-group">
-                                <label for="gender">Gender:</label>
-                                <select class="form-control" name="gender" id="update_gender">
+                                <label for="update_gender">Gender:</label>
+                                <select class="form-control" name="update_gender" id="update_gender">
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
                                     <option value="other">Other</option>
@@ -155,19 +157,19 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="course">Course:</label>
-                                <input class="form-control" type="text" id="update_course" name="course">
+                                <label for="update_course">Course:</label>
+                                <input class="form-control" type="text" id="update_course" name="update_course">
 
-                                <label for="year">Year:</label>
-                                <input class="form-control" type="number" id="update_year" name="year">
+                                <label for="update_year">Year:</label>
+                                <input class="form-control" type="number" id="update_year" name="update_year">
 
-                                <label for="section">Section:</label>
-                                <input class="form-control" type="text" id="update_section" name="section">
+                                <label for="update_section">Section:</label>
+                                <input class="form-control" type="text" id="update_section" name="update_section">
                             </div>
 
                             <div class="form-group">
-                                <label for="user-type">User Type:</label>
-                                <select class="form-control" name="user_type" id="update_user-type">
+                                <label for="update_user-type">User Type:</label>
+                                <select class="form-control" name="update_user-type" id="update_user-type">
                                     <option value="administrator">Admin</option>
                                     <option value="organizer">Organizer</option>
                                     <option value="participant">Participant</option>
@@ -176,7 +178,7 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" id="updateUserButton" class="btn btn-primary">Update</button>
                         </div>
                         </div>
                     </div>

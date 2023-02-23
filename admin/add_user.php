@@ -7,6 +7,13 @@
 
     $result = mysqli_query($con,$sql);
 
+    $sql = "SELECT * from users";
+    if ($result = mysqli_query($con, $sql)) {
+        $rowcount = mysqli_num_rows( $result );
+        echo $rowcount;
+    }
+
+
 ?>
 
 
