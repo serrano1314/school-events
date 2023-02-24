@@ -14,8 +14,13 @@ function display_calendar(data) {
       headerToolbar:{
         center: 'dayGridMonth, timeGridWeek, timeGridDay'
       },
-
-    events: data
+    events: data,
+      // other events here
+    eventClick: function(info) {
+      alert('Event: ' + info.event.title);
+      // change the border color just for fun
+      info.el.style.borderColor = 'red';
+    }
     });
     calendar.render();
 };
