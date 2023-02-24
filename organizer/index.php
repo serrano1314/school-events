@@ -10,25 +10,11 @@
         exit();
     }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Organizer</title>
-    <!-- <link rel="stylesheet" href="../style.css"> -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.1/main.min.css" rel="stylesheet"></link> -->
-    
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.1/index.global.min.js'></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
-<body>
+<?php include 'header.php'?>
     <a href="../logout.php">logout</a>
     
     <!-- Button trigger modal -->
-    <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div class="modal fade" id="modalAddEvent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -38,6 +24,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <!-- ADD EVENT MODAL -->
       <div class="modal-body mx-3">
         <form>
         <div class="md-form mb-2">
@@ -121,10 +108,123 @@
 </div>
 
 <div class="text-left">
-  <a href="" class="btn btn-secondary btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Add Event</a>
+  <a href="" class="btn btn-secondary btn-rounded mb-4" data-toggle="modal" data-target="#modalAddEvent">Add Event</a>
 </div class="container">
    
     <div id='calendar'></div>
+
+    <!-- update MODAL -->
+    <div class="modal fade" id="modalUpdateEvent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Update Event</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+      <div class="md-form mb-2">
+          <i class="fas fa-envelope prefix grey-text"></i>
+          <label data-error="wrong" data-success="right" sfor="title">Event Title</label>
+            <input type="text" class="form-control validate" name="title" id="update_title" required>
+        </div>
+
+        <div class="md-form mb-2">
+          <i class="fas fa-lock prefix grey-text"></i>
+          <label data-error="wrong" data-success="right" for="event_description">Event Description:</label>
+        <input type="text" name="description" class="form-control validate" id="update_event_description" required>
+        </div>
+
+        <div class="md-form mb-3">
+          <i class="fas fa-lock prefix grey-text"></i>
+        <label for="eventStart">Event Start:</label>
+        <input data-error="wrong" data-success="right" type="datetime-local" name="start_datetime" id="update_eventStart" class="form-control" value="2023-02-07T07:33"/>
+        </div>
+
+        <div class="md-form mb-2">
+          <i class="fas fa-lock prefix grey-text"></i>
+        <label for="eventStart">Event End:</label>
+        <input data-error="wrong" data-success="right" type="datetime-local" name="end_datetime" id="update_eventEnd" class="form-control" value="2023-02-07T07:33"/>
+        </div>
+
+        <div class="md-form mb-2">
+          <i class="fas fa-lock prefix grey-text"></i>
+        <label for="location">Event Location:</label>
+        <input type="text" data-error="wrong" id="update_location" data-success="right" list="location" name="location" class="form-control" required/><br>
+        <datalist >
+            <option value="Gymnasium">
+            <option value="IRTC Builing">
+            <option value="Field">
+        </datalist>
+        </div>
+
+        <div class="md-form mb-2">
+          <i class="fas fa-lock prefix grey-text"></i>
+          <label for="event_type">Event Type:</label>
+            <select class="form-control" name="type" id="update_event_type">
+                <option value="1">Meeting</option>
+                <option value="2">Organization Event</option>
+                <option value="3">Semester Kickoff</option>
+                <option value="4">Others</option>
+            </select>
+        </div>
+
+        <div class="md-form mb-2">
+          <i class="fas fa-lock prefix grey-text"></i>
+          <h4>Equipments</h4>
+          <?php 
+          // get equipments 
+          $sql = "SELECT * FROM equipments";
+          $result = mysqli_query($con, $sql);
+          $equipments = mysqli_fetch_all($result);
+          
+        //   $sql = 'SELECT * FROM equipment_in_used WHERE event_id='.$event_id;
+        //   $result = mysqli_query($con, $sql);
+        //   $equipment_data =array_slice(mysqli_fetch_row($result), 2);
+
+          
+          for($i=0; $i<count($equipments); $i++){
+              
+              echo '<label for="'.$equipments[$i][1].'">'.$equipments[$i][1].': </label>';
+            //   echo '<input type="number" id="'.$equipments[$i][1].'" name="equipments_List['.$equipments[$i][1].']" min=0 max='.end($equipments[$i])+$equipment_data[$i].' value='.$equipment_data[$i].'><br>';
+                echo '<input class="form-control" type="number" id="update_'.$equipments[$i][1].'"';
+          }
+
+
+            // $sql = 'SELECT * FROM equipments';
+            // $result = mysqli_query($con, $sql);
+
+            // while($equipment_data = mysqli_fetch_assoc($result)){
+                
+            //     echo '<label for="'.$equipment_data['equipment'].'">'.$equipment_data['equipment'].': </label>';
+            //     echo '<input type="number" class="form-control equipments" name="equipments_List['.$equipment_data['equipment'].']" min=0 max='.$equipment_data['remaining_no'].' value=0><br>';
+            // }
+            
+            
+            $sql = "SELECT id FROM event ORDER BY id DESC LIMIT 1";
+            $result = mysqli_query($con, $sql);
+            $last_event = mysqli_fetch_row($result);
+            
+        
+        ?>
+        </div>
+        <input type="hidden" id="event_id" name="event_id" value=<?php echo ($last_event) ?$last_event[0]+1 : 1; ?>>
+        <input type="hidden" id="event_status" name="status" value="1">
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+      <button type="button" class="btn btn-success" data-bs-dismiss="modal">Update Event</button>
+        <button type="button" class="btn btn-danger" id="add_event">Delete Event</button>
+      </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-deep-orange">Sign up</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- 
     <div class="event_content">
     <table>
@@ -180,10 +280,4 @@
                 ?>
             </table>
     </div> -->
-</body>
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"crossorigin="anonymous"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="organizer.js"></script>
-</html>
+<?php include 'footer.php'?>

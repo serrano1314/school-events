@@ -18,7 +18,7 @@ $result = mysqli_query($con,$sql);
 
 $equipment_id = mysqli_num_rows( $result )+1;
 
-
+// INSERT DATA TO EVENT TABLE
 $sql = "INSERT INTO `event` (id, user_id, title, description, start_datetime, end_datetime, location, type, equipments, status)
 VALUES('$event_id','$user_id', '$event_title', '$event_description', '$event_start', '$event_end', '$event_location', '$event_type','$equipment_id', '$event_status')";
 
@@ -35,16 +35,17 @@ if($result){
         array_push($equipment_keys, $equipment_data[$i][1]);
     }
     
-    print_r($equipment_keys);
+    
     
     array_unshift($temp_val, $equipment_id, $event_id);
     array_unshift($equipment_keys, "id", "event_id");
-    
+    // INSERT DATA TO EQUIPMENT USED BY THAT EVENT
     $sql = "INSERT INTO `equipment_in_used` (" . implode(', ',$equipment_keys) . ") 
     VALUES (" . implode(', ',$temp_val) . ")";
-        echo $sql;
+        
     $result = mysqli_query($con,$sql);
     if($result){
+        // UPDATE THE EQUIPMENTS TABLE ON HOW MANY IS REMAINING
         for($i=0; $i<count($equipment_data); $i++){
             
             $sql = "UPDATE `equipments` SET `remaining_no` = (`remaining_no` -".$equipments[$i].") WHERE equipment='".$equipment_data[$i][1]."';";

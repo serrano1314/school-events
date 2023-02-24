@@ -18,7 +18,8 @@ function display_calendar(data) {
     events: data,
       // other events here
     eventClick: function(info) {
-      alert('Event: ' + info.event.id);
+      
+      updateEvent(info);
       // change the border color just for fun
       info.el.style.borderColor = 'red';
     }
@@ -91,11 +92,42 @@ function addEvent(){
           console.log(status);
           alert(status);
           $('form').trigger('reset');
-          $("#modalLoginForm").modal('toggle');
+          $("#modalAddEvent").modal('toggle');
           insert_data();
           // // console.log(parseInt(data)+1);
           // $('#uname').val('default' + (parseInt(data)+1).toString());
           // displayUsersTable();
       }
+  });
+}
+
+function updateEvent(info){
+  // alert('Event: ' + info.event.id);
+  var event_id = info.event.id;
+  $('#modalUpdateEvent').modal('toggle');
+
+  $.ajax({
+    url:'get_event_data.php',
+    method:'post', 
+    data:{
+        event_id: event_id
+    },
+    success:function(data,status){
+        data = JSON.parse(data)
+        // console.log(data['title']);
+        // console.log(data['equipments']);
+        $('#update_title').val(data['title']);
+        $('#update_event_description').val(data['description']);
+        $('#update_eventStart').val(data['start_datetime']);
+        $('#update_eventEnd').val(data['end_datetime']);
+        $('#update_location').val(data['location']);
+        $('#update_event_type').val(data['type']);
+        // console.log(data['equipment_keys']);
+        for(i=0; i<data['equipment_keys'].length; i++){
+          // $('#update_'+data['equipment_keys'][i]);
+          $('#update_'+data['equipment_keys'][i]).val(data['equipments'][i]);
+        }
+
+    }
   });
 }
