@@ -20,7 +20,7 @@ $equipment_id = mysqli_num_rows( $result )+1;
 
 
 $sql = "INSERT INTO `event` (id, user_id, title, description, start_datetime, end_datetime, location, type, equipments, status)
-VALUES('$event_id','$user_id', '$event_title', '$event_description', '$event_start', '$event_end', '$event_location', '$event_type','$equipment_id', '$event_Status')";
+VALUES('$event_id','$user_id', '$event_title', '$event_description', '$event_start', '$event_end', '$event_location', '$event_type','$equipment_id', '$event_status')";
 
 $result = mysqli_query($con,$sql);
 if($result){

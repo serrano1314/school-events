@@ -122,66 +122,10 @@
 
 <div class="text-left">
   <a href="" class="btn btn-secondary btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Add Event</a>
-</div>
-    <!-- <h3>Add Event</h3>
-    <form action="add_event.php" method="POST">
-        <label for="title">Event Title:</label>
-        <input type="text" name="title" id="title" required><br>
-
-        <label for="event_description">Event Description:</label>
-        <input type="text" name="description" id="event_description" required><br>
-
-        <label for="eventStart">Event Start:</label>
-        <input type="datetime-local" name="start_datetime" id="eventStart" value="2023-02-07T07:33"/><br>
-
-        <label for="eventStart">Event End:</label>
-        <input type="datetime-local" name="end_datetime" id="eventEnd" value="2023-02-07T07:33"/><br>
-
-        <label for="location">Event Location:</label>
-        <input type="text" list="location" name="location" required/><br>
-        <datalist id="location">
-            <option value="Gymnasium">
-            <option value="IRTC Builing">
-            <option value="Field">
-        </datalist>
-
-        <label for="event_type">Event Type:</label>
-        <select name="type" id="event_type"><br>
-            <option value="1">Meeting</option>
-            <option value="2">Organization Event</option>
-            <option value="3">Semester Kickoff</option>
-            <option value="4">Others</option>
-        </select>
-
-        
-        <h4>Equipments</h4>
-        <?php 
-            $sql = 'SELECT * FROM equipments';
-            $result = mysqli_query($con, $sql);
-
-            while($equipment_data = mysqli_fetch_assoc($result)){
-                
-                echo '<label for="'.$equipment_data['equipment'].'">'.$equipment_data['equipment'].': </label>';
-                echo '<input type="number" id="'.$equipment_data['equipment'].'" name="equipments_List['.$equipment_data['equipment'].']" min=0 max='.$equipment_data['remaining_no'].' value=0><br>';
-            }
-            
-            
-            $sql = "SELECT id FROM event ORDER BY id DESC LIMIT 1";
-            $result = mysqli_query($con, $sql);
-            $last_event = mysqli_fetch_row($result);
-            
-        
-        ?>
-        <input type="hidden" name="event_id" value=<?php echo ($last_event) ?$last_event[0]+1 : 1; ?>>
-        <input type="hidden" name="status" value="1">
-        <br>
-        <button type="submit" name="submit" id="addEvent">Add Event</button>
-
-    </form> -->
-
-
+</div class="container">
+   
     <div id='calendar'></div>
-
+<!-- 
     <div class="event_content">
     <table>
                 <tr>
@@ -235,7 +179,7 @@
                     }
                 ?>
             </table>
-    </div>
+    </div> -->
 </body>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"crossorigin="anonymous"></script>
 

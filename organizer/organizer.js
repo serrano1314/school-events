@@ -1,12 +1,12 @@
 
 $(document).ready(function(){
     // getData();
+    insert_data()
     $('#add_event').unbind().click(addEvent);
     // $('#updateUserButton').unbind().click(updateUser);
 })
 // getData();
 function display_calendar(data) {
-    
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: 'dayGridMonth',
@@ -18,7 +18,7 @@ function display_calendar(data) {
     events: data,
       // other events here
     eventClick: function(info) {
-      alert('Event: ' + info.event.title);
+      alert('Event: ' + info.event.id);
       // change the border color just for fun
       info.el.style.borderColor = 'red';
     }
@@ -44,6 +44,21 @@ function display_calendar(data) {
 
 // }
 
+// insert data to calendar
+function insert_data(){
+  $.ajax({
+    url:'display_calendar_data.php',
+    method:'post', 
+    success:function(data,status){
+        data = JSON.parse(data)
+        
+        console.log(data);
+        display_calendar(data);
+
+    }
+});
+}
+
 // // Add Event 
 function addEvent(){
     var title_add = $('#title').val();
@@ -53,6 +68,7 @@ function addEvent(){
     var location_add = $('#location').val();
     var eventType_add = $('#event_type').val();
     var event_id = $('#event_id').val();
+    var event_status = $('#event_status').val();
 
     var equipments = $('.equipments').map((_,el) => el.value).get();
     console.log(equipments);
@@ -68,14 +84,15 @@ function addEvent(){
           event_location: location_add,
           event_type: eventType_add,
           equipments: equipments,
-          event_id: event_id
+          event_id: event_id,
+          event_status: event_status
       },
       success:function(data,status){
           console.log(status);
           alert(status);
           $('form').trigger('reset');
           $("#modalLoginForm").modal('toggle');
-          
+          insert_data();
           // // console.log(parseInt(data)+1);
           // $('#uname').val('default' + (parseInt(data)+1).toString());
           // displayUsersTable();
