@@ -2,7 +2,7 @@
     include 'db_connect.php';
     if(isset($_POST['tableData'])){
         $table = '
-        <table class="table table-striped table-hover my-3">
+        <table class="table table-striped table-hover my-3" id="displayuser_table">
         <thead>
             <tr>
                 <th>id</th>
@@ -14,7 +14,8 @@
                 <th>email</th>
                 <th>actions</th>
             </tr>
-        </thead>';
+        </thead>
+        <tbody>';
 
         $sql = "SELECT * from users WHERE is_user_active = '1'";
         $active_users = mysqli_query($con, $sql);
@@ -44,7 +45,22 @@
             </tr>
             ';
         }
-        $table.='</table>';
+        
+        $table.='
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>id</th>
+                <th>username</th>
+                <th>user type</th>
+                <th>full name</th>
+                <th>gender</th>
+                <th>course/yr/sec</th>
+                <th>email</th>
+                <th>actions</th>
+            </tr>
+        </tfoot>
+        </table>';
         echo $table;
     }
 ?>

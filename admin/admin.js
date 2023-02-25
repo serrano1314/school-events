@@ -1,11 +1,12 @@
 $(document).ready(function(){
+    
     displayUsersTable();
     $('#addUserButton').unbind().click(addUser);
     $('#updateUserButton').unbind().click(updateUser);
 })
 
 function displayUsersTable(){
-
+    
     var displayTableData = 'true';
     $.ajax({
         url:'display_user_table.php',
@@ -17,10 +18,14 @@ function displayUsersTable(){
             console.log(status);
             console.log('display');
             $('#display-user').html(data);
+            $('#displayuser_table').DataTable();
+
         }
     })
 
     getUserRecord();
+    
+    
 }
 
 function getUserRecord(){
