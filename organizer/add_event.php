@@ -21,7 +21,7 @@ $equipment_id = mysqli_num_rows( $result )+1;
 // INSERT DATA TO EVENT TABLE
 $sql = "INSERT INTO `event` (id, user_id, title, description, start_datetime, end_datetime, location, type, equipments, status)
 VALUES('$event_id','$user_id', '$event_title', '$event_description', '$event_start', '$event_end', '$event_location', '$event_type','$equipment_id', '$event_status')";
-
+echo $event_id+1;
 $result = mysqli_query($con,$sql);
 if($result){
     // add equipments in used to the database

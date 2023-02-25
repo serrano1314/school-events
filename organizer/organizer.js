@@ -72,7 +72,7 @@ function addEvent(){
     var event_status = $('#event_status').val();
 
     var equipments = $('.add_equipments').map((_,el) => el.value).get();
-    console.log(equipments);
+    console.log(event_id);
 
     $.ajax({
       url:'add_event.php',
@@ -89,13 +89,13 @@ function addEvent(){
           event_status: event_status
       },
       success:function(data,status){
-          console.log(status);
+          console.log(data);
           alert(status);
           $('form').trigger('reset');
           $("#modalAddEvent").modal('toggle');
           insert_data();
           // // console.log(parseInt(data)+1);
-          // $('#uname').val('default' + (parseInt(data)+1).toString());
+          $('#event_id').val(data);
           // displayUsersTable();
       }
   });
@@ -128,7 +128,7 @@ function getEventData(info){
           // $('#update_'+data['equipment_keys'][i]);
           $('#update_'+data['equipment_keys'][i]).val(data['equipments'][i]);
         }
-
+        $('#delete_event').click({event_id: data['id'], equipments: data['equipments']}, delete_event);
 
     }
   });
@@ -163,11 +163,37 @@ function updateEvent(){
         // console.log(data['equipments']);
         $('form').trigger('reset');
         $("#modalUpdateEvent").modal('toggle');
+        $('#delete_event').unbind();
         insert_data();
     }
   });
 }
 
-function delete_event(event_id){
-  console.log("hello");
+function delete_event(event){
+  console.log(event.data.equipments);
+    if(confirm('Are You sure you want to delete'+event.data.event_id)){
+      console.log('wala na');
+      $.ajax({
+        url:'delete_event.php',
+            method:'post',
+            data:{
+                del_event_id:event.data.event_id,
+                event_equipments: event.data.equipments
+            },
+            success:function(data,status){
+                console.log(status);
+                // console.log('delete' + data);
+                // alert('Deletion '+status);
+                insert_data();
+                $('#delete_event').unbind();
+                $("#modalUpdateEvent").modal('toggle');
+            }
+      });
+    }else{
+      console.log('overthingker ah');
+      $("#modalUpdateEvent").modal('toggle');
+    }
+    console.log('umaabiot');
+    insert_data();
+    $('#delete_event').unbind();
 }
