@@ -3,7 +3,7 @@ $(document).ready(function(){
     // getData();
     insert_data()
     $('#add_event').unbind().click(addEvent);
-    // $('#updateUserButton').unbind().click(updateUser);
+    $('#update_event').unbind().click(updateEvent);
 })
 // getData();
 function display_calendar(data) {
@@ -19,7 +19,7 @@ function display_calendar(data) {
       // other events here
     eventClick: function(info) {
       
-      updateEvent(info);
+      getEventData(info);
       // change the border color just for fun
       info.el.style.borderColor = 'red';
     }
@@ -71,7 +71,7 @@ function addEvent(){
     var event_id = $('#event_id').val();
     var event_status = $('#event_status').val();
 
-    var equipments = $('.equipments').map((_,el) => el.value).get();
+    var equipments = $('.add_equipments').map((_,el) => el.value).get();
     console.log(equipments);
 
     $.ajax({
@@ -101,7 +101,7 @@ function addEvent(){
   });
 }
 
-function updateEvent(info){
+function getEventData(info){
   // alert('Event: ' + info.event.id);
   var event_id = info.event.id;
   $('#modalUpdateEvent').modal('toggle');
@@ -116,6 +116,7 @@ function updateEvent(info){
         data = JSON.parse(data)
         // console.log(data['title']);
         // console.log(data['equipments']);
+        $('#update_event_id').val(data['id']);
         $('#update_title').val(data['title']);
         $('#update_event_description').val(data['description']);
         $('#update_eventStart').val(data['start_datetime']);
@@ -128,6 +129,45 @@ function updateEvent(info){
           $('#update_'+data['equipment_keys'][i]).val(data['equipments'][i]);
         }
 
+
     }
   });
+}
+
+function updateEvent(){
+  var event_titles = $('#update_title').val();
+  var event_descriptions = $('#update_event_description').val();
+  var event_starts = $('#update_eventStart').val();
+  var event_ends = $('#update_eventEnd').val();
+  var event_locations = $('#update_location').val();
+  var event_types = $('#update_event_type').val();
+  var event_ids = $('#update_event_id').val();
+  var equipments = $('.update_equipments').map((_,el) => el.value).get();
+  console.log(event_titles);
+  $.ajax({
+    url:'update_event.php',
+    method:'post', 
+    data:{
+        event_id: event_ids,
+        event_title: event_titles,
+        event_description: event_descriptions,
+        event_start: event_starts,
+        event_end: event_ends,
+        event_location: event_locations,
+        event_type: event_types,
+        equipments: equipments
+    },
+    success:function(data,status){
+        // data = JSON.parse(data)
+        // console.log(data['title']);
+        // console.log(data['equipments']);
+        $('form').trigger('reset');
+        $("#modalUpdateEvent").modal('toggle');
+        insert_data();
+    }
+  });
+}
+
+function delete_event(event_id){
+  console.log("hello");
 }

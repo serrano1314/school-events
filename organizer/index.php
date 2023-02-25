@@ -10,6 +10,7 @@
         exit();
     }
 ?>
+<?php include 'get_equipments.php'?>
 <?php include 'header.php'?>
     <a href="../logout.php">logout</a>
     
@@ -77,15 +78,11 @@
           <i class="fas fa-lock prefix grey-text"></i>
           <h4>Equipments</h4>
           <?php 
-            $sql = 'SELECT * FROM equipments';
-            $result = mysqli_query($con, $sql);
-
-            while($equipment_data = mysqli_fetch_assoc($result)){
+            for($i=0; $i<count($EQUIPMENTS); $i++){
                 
-                echo '<label for="'.$equipment_data['equipment'].'">'.$equipment_data['equipment'].': </label>';
-                echo '<input type="number" class="form-control equipments" name="equipments_List['.$equipment_data['equipment'].']" min=0 max='.$equipment_data['remaining_no'].' value=0><br>';
+                echo '<label for="'.$EQUIPMENTS[$i][0].'">'.$EQUIPMENTS[$i][0].': </label>';
+                echo '<input type="number" class="form-control add_equipments" name="equipments_List['.$EQUIPMENTS[$i][0].']" min=0 max='.end($EQUIPMENTS[$i]).' value=0><br>';
             }
-            
             
             $sql = "SELECT id FROM event ORDER BY id DESC LIMIT 1";
             $result = mysqli_query($con, $sql);
@@ -98,7 +95,7 @@
         <input type="hidden" id="event_status" name="status" value="1">
       </div>
       <div class="modal-footer d-flex justify-content-center">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-primary" id="add_event">Add Event</button>
       </div>
         </form>
@@ -125,7 +122,8 @@
         </button>
       </div>
       <div class="modal-body mx-3">
-      <div class="md-form mb-2">
+            <form>
+            <div class="md-form mb-2">
           <i class="fas fa-envelope prefix grey-text"></i>
           <label data-error="wrong" data-success="right" sfor="title">Event Title</label>
             <input type="text" class="form-control validate" name="title" id="update_title" required>
@@ -176,20 +174,20 @@
           <h4>Equipments</h4>
           <?php 
           // get equipments 
-          $sql = "SELECT * FROM equipments";
-          $result = mysqli_query($con, $sql);
-          $equipments = mysqli_fetch_all($result);
+          // $sql = "SELECT * FROM equipments";
+          // $result = mysqli_query($con, $sql);
+          // $equipments = mysqli_fetch_all($result);
           
         //   $sql = 'SELECT * FROM equipment_in_used WHERE event_id='.$event_id;
         //   $result = mysqli_query($con, $sql);
         //   $equipment_data =array_slice(mysqli_fetch_row($result), 2);
 
           
-          for($i=0; $i<count($equipments); $i++){
+          for($i=0; $i<count($EQUIPMENTS); $i++){
               
-              echo '<label for="'.$equipments[$i][1].'">'.$equipments[$i][1].': </label>';
+              echo '<label for="'.$EQUIPMENTS[$i][0].'">'.$EQUIPMENTS[$i][0].': </label>';
             //   echo '<input type="number" id="'.$equipments[$i][1].'" name="equipments_List['.$equipments[$i][1].']" min=0 max='.end($equipments[$i])+$equipment_data[$i].' value='.$equipment_data[$i].'><br>';
-                echo '<input class="form-control" type="number" id="update_'.$equipments[$i][1].'"';
+                echo '<input class="form-control update_equipments" type="number" id="update_'.$EQUIPMENTS[$i][0].'"';
           }
 
 
@@ -210,16 +208,14 @@
         
         ?>
         </div>
-        <input type="hidden" id="event_id" name="event_id" value=<?php echo ($last_event) ?$last_event[0]+1 : 1; ?>>
+        <input type="hidden" id="update_event_id" name="event_id">
         <input type="hidden" id="event_status" name="status" value="1">
       </div>
       <div class="modal-footer d-flex justify-content-center">
-      <button type="button" class="btn btn-success" data-bs-dismiss="modal">Update Event</button>
-        <button type="button" class="btn btn-danger" id="add_event">Delete Event</button>
+      <button type="button" class="btn btn-success" id="update_event">Update Event</button>
+        <button type="button" class="btn btn-danger" id="delete_event" >Delete Event</button>
       </div>
-      </div>
-      <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-deep-orange">Sign up</button>
+            </form>
       </div>
     </div>
   </div>

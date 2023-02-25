@@ -9,7 +9,7 @@ if(isset($_SESSION['userdata'])){
 }   
 
 include '../admin/db_connect.php';
-
+include 'get_equipments.php';
 extract($_POST);
 
 
@@ -25,14 +25,14 @@ VALUES('$event_id','$user_id', '$event_title', '$event_description', '$event_sta
 $result = mysqli_query($con,$sql);
 if($result){
     // add equipments in used to the database
-    $sql = "SELECT * from equipments";
-    $result = mysqli_query($con, $sql);
-    $equipment_data = mysqli_fetch_all($result);
+    // $sql = "SELECT * from equipments";
+    // $result = mysqli_query($con, $sql);
+    // $equipment_data = mysqli_fetch_all($result);
 
     $equipment_keys = array();
     $temp_val = $equipments;
-    for($i=0; $i < count($equipment_data); $i++){
-        array_push($equipment_keys, $equipment_data[$i][1]);
+    for($i=0; $i < count($EQUIPMENTS); $i++){
+        array_push($equipment_keys, $EQUIPMENTS[$i][0]);
     }
     
     
@@ -46,9 +46,9 @@ if($result){
     $result = mysqli_query($con,$sql);
     if($result){
         // UPDATE THE EQUIPMENTS TABLE ON HOW MANY IS REMAINING
-        for($i=0; $i<count($equipment_data); $i++){
+        for($i=0; $i<count($EQUIPMENTS); $i++){
             
-            $sql = "UPDATE `equipments` SET `remaining_no` = (`remaining_no` -".$equipments[$i].") WHERE equipment='".$equipment_data[$i][1]."';";
+            $sql = "UPDATE `equipments` SET `remaining_no` = (`remaining_no` -".$equipments[$i].") WHERE equipment='".$EQUIPMENTS[$i][0]."';";
             $result = mysqli_query($con,$sql);
             if($result){
                 continue;
