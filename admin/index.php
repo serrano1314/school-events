@@ -2,7 +2,13 @@
 <?php 
     session_start();
 
+    if($_SESSION['userdata']['user_type'] !== 'administrator'){
+        header("location: ../index.php");
+        exit();
+    }
+    
     if(isset($_SESSION['userdata'])){ 
+
         include 'db_connect.php';
 
         $sql = "SELECT * from users";

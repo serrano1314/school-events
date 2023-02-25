@@ -1,3 +1,25 @@
+<?php
+    session_start();
+    if(isset($_SESSION['user_type'])){
+        if($_SESSION['user_type'] === "administrator"){
+            header("location: admin/index.php");
+            exit();
+        }
+        if($_SESSION['user_type'] === "organizer"){
+            header("location: organizer/index.php");
+            exit();
+        } 
+        if($_SESSION['user_type'] === "participant"){
+            header("location: participant/index.php");
+            exit();
+        } 
+    }else{
+        session_unset();
+        session_destroy();
+
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

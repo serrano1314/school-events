@@ -1,7 +1,16 @@
 <?php 
     session_start();
+
+    if($_SESSION['userdata']['user_type'] !== 'organizer'){
+      header("location: ../index.php");
+      exit();
+    }
+    
     include '../admin/db_connect.php';
     if(isset($_SESSION['userdata'])){ 
+
+      
+
         echo 'Welcome '.$_SESSION['userdata']['user_type'].' ';
         echo $_SESSION['userdata']['first_name'];
         // echo 'valid';
