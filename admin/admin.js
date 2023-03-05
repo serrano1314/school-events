@@ -1,8 +1,10 @@
 $(document).ready(function(){
     
     displayUsersTable();
+    displayEventTable();
     $('#addUserButton').unbind().click(addUser);
     $('#updateUserButton').unbind().click(updateUser);
+    $('#addEventButton').unbind().click(addEvent);
 })
 
 function displayUsersTable(){
@@ -25,6 +27,24 @@ function displayUsersTable(){
 
     getUserRecord();
     
+    
+}
+
+function displayEventTable(){
+    var displayTableEventData = 'true';
+    $.ajax({
+        url:'display_event_table.php',
+        method:'post',
+        data:{
+            tableEventData:displayTableEventData
+        },
+        success:function(data,status){
+            console.log('display event table');
+            $('#display-event').html(data);
+            $('#displayevent_table').DataTable();
+
+        }
+    })
     
 }
 
@@ -164,6 +184,38 @@ function addUser(){
             // console.log(parseInt(data)+1);
             $('#uname').val('default' + (parseInt(data)+1).toString());
             displayUsersTable();
+        }
+    });
+}
+
+function addEvent(){
+    var eventStart_add=$('#eventStartDate').val();
+    var eventEnd_add=$('#eventEndDate').val();
+    var eventTitle_add=$('#eventTitle').val();
+    var eventDescription_add=$('#eventDescription').val();
+    var eventLocation_add=$('#eventLocation').val();
+    var eventType_add=$('#eventType').val();
+    var user_id_event_add = $('#user_id_event').val();
+
+    $.ajax({
+        url:'add_event.php',
+        method: 'post',
+        data:{
+            eventStart: eventStart_add,
+            eventEnd: eventEnd_add,
+            eventTitle: eventTitle_add,
+            eventDescription: eventDescription_add,
+            eventLocation: eventLocation_add,
+            eventType: eventType_add,
+            user_id_event: user_id_event_add
+        },
+        success:function(data,status){
+            console.log(data);
+            console.log('Add event success');
+            alert(status);
+            // $("#addEventModal").modal('hide');
+            $('form').trigger('reset');
+            displayEventTable();
         }
     });
 }
