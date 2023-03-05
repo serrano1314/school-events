@@ -8,7 +8,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="#testsection">Test Section</a>
+          <a class="nav-link" href="#manage-event">Manage Event</a>
         </li>
 
         <li class="nav-item">
