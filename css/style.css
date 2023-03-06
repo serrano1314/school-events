@@ -2,7 +2,7 @@
 *{
     font-family: 'Open Sans', sans-serif;
 }
-#homepage { 
+#homepage, #forgotpassword, #adminpage, #participantspage{ 
     height:100vh;
     width:100vw;
     background:linear-gradient(120deg, rgb(241, 241, 241), rgb(241, 241, 241) 60%, #A6EAFF 60%, #A6EAFF);
@@ -33,17 +33,27 @@ form.login input, form.login button{
 }
 .btn_login:hover{
     background-color: #ddfbff;
+    cursor: pointer;
+}
+.login a{
+    font-size: 12px;
+    text-decoration: none;
+    color: black;
+    padding-left: 15px;
+}
+.login a:hover{
+    text-shadow: 2px 2px 8px #020202;
 }
 .login input{
     height: 30px;
     border-radius: 8px;
     border: none;
     padding-left: 15px;
-    box-shadow: 1px 5px 5px -5px 
+    box-shadow: 1px 5px 5px -5px;
 }
 h1.app-title{
     text-align: center;
-    margin: 0;
+    margin: 0 0 10px 0;
     padding-top: 20%;
     /* background-color:blue; */
 }
