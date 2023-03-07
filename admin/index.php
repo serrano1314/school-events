@@ -237,8 +237,23 @@
                                                             <input type="hidden" id="user_id_event" value="<?php echo $_SESSION['userdata']['id']; ?>">
                                                             <input class="form-control mb-2" type="text" id="eventTitle" name="eventTitle"  placeholder="Event Title..." require>
                                                             <textarea class="form-control mb-2" id="eventDescription" name="eventDescription" rows="4" cols="50" placeholder="Event Description..."></textarea>
-                                                            <input class="form-control mb-2" type="text" id="eventLocation" name="eventLocation"  placeholder="Location...">
-                                                            <input class="form-control mb-2" type="number" id="eventType" name="eventType"  placeholder="Type of Event...">
+                                                            <!-- <input class="form-control mb-2" type="text" id="eventLocation" name="eventLocation"  placeholder="Location..."> -->
+                                                            <select id="eventLocation" class="form-select mb-1" aria-label="Default select example">
+                                                                <option  value="" disabled selected>Location</option>
+                                                                <option value="0">0</option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                            </select>
+
+                                                            <!-- <input class="form-control mb-2" type="number" id="eventType" name="eventType"  placeholder="Type of Event..."> -->
+                                                            <select id="eventType" class="form-select mb-1" aria-label="Default select example">
+                                                                <option  value="" disabled selected>Category</option>
+                                                                <option value="0">0</option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                            </select>
                                                             
                                                         </div>
                                                     </div>
@@ -277,7 +292,7 @@
                                     <div class="row mb-1">
                                         <div class="col input-group">
                                             <span class="input-group-text" id="event_title_addon">Title</span>
-                                            <input type="text" class="form-control" id="update_event_title" aria-describedby="event_title_addon">
+                                            <input type="text" class="form-control" id="update_event_title" style="font-weight: bold;" aria-describedby="event_title_addon">
                                         </div>
                                     </div>
                                     <div class="row mb-1">

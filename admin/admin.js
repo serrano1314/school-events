@@ -111,7 +111,8 @@ function getEventRecord(){
                 $('#update_end_datetime').val(data[5]);
                 $('#update_event_location').val(data[6]);
                 $('#update_event_type').val(data[7]);
-
+                
+                
             }
         });
     });    
