@@ -5,6 +5,7 @@ $(document).ready(function(){
     $('#addUserButton').unbind().click(addUser);
     $('#updateUserButton').unbind().click(updateUser);
     $('#addEventButton').unbind().click(addEvent);
+    
 })
 
 function displayUsersTable(){
@@ -26,8 +27,6 @@ function displayUsersTable(){
     })
 
     getUserRecord();
-    
-    
 }
 
 function displayEventTable(){
@@ -45,7 +44,7 @@ function displayEventTable(){
 
         }
     })
-    
+    getEventRecord();
 }
 
 function getUserRecord(){
@@ -79,6 +78,39 @@ function getUserRecord(){
                 $('#update_year').val(data[9]);
                 $('#update_section').val(data[10]);
                 $('#update_user-type').val(data[11]);
+
+            }
+        });
+    });    
+}
+
+function getEventRecord(){
+    
+    $(document).on('click','#getEventDataButton', function(e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        var update_evet_id = $(this).attr('data-id');
+        
+        $.ajax({
+            url:'get_event_record.php',
+            method:'post', 
+            data:{
+                event_id:update_evet_id
+            },
+            success:function(data,status){
+                data = JSON.parse(data)
+                console.log(data);
+                console.log(status);
+                $('#updateEventRowModal').modal('show');
+
+                $('#update_event_id').val(data[0]);
+                $('#update_event_title').val(data[2]);
+                $('#update_event_description').val(data[3]);
+
+                $('#update_start_datetime').val(data[4]);
+                $('#update_end_datetime').val(data[5]);
+                $('#update_event_location').val(data[6]);
+                $('#update_event_type').val(data[7]);
 
             }
         });

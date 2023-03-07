@@ -39,8 +39,8 @@
                 <td>'.$user_course_yr_sec.'</td>
                 <td>'.$user_email.'</td>
                 <td>
-                    <button class="btn btn-info" id="getUserDataButton" data-id='.$user_id.'><span class="fa fa-edit"></span></button>
-                    <button class="btn btn-danger" onclick="deleteUser('.$user_id.')"><span class="fa fa-trash"></span></button>
+                    <button class="btn btn-info btn-sm" id="getUserDataButton" data-id='.$user_id.'><span class="fa fa-edit"></span></button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteUser('.$user_id.')"><span class="fa fa-trash"></span></button>
                 </td>
             </tr>
             ';

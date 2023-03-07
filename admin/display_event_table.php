@@ -9,7 +9,7 @@
                 <th>Title</th>
                 <th>Date Start</th>
                 <th>Type</th>
-                <th>actions</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>';
@@ -29,8 +29,7 @@
                 <td>'.$event_start.'</td>
                 <td>'.$event_type.'</td>
                 <td>
-                    <button class="btn btn-info" id="getEventDataButton" data-id='.$event_id.'><span class="fa fa-edit"></span></button>
-                    <button class="btn btn-danger" onclick="deleteEvent('.$event_id.')"><span class="fa fa-trash"></span></button>
+                    <button class="btn btn-sm" id="getEventDataButton" data-id='.$event_id.'><span class="fa fa-edit"></span></button>
                 </td>
             </tr>
             ';

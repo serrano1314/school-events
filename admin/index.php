@@ -123,10 +123,10 @@
                 <div class="modal fade" id="updateUserModal" tabindex="-1" aria-labelledby="updateUserModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="updateUserModalLabel">Update User</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="updateUserModalLabel">Update User</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
                         <div class="modal-body">
                             <!-- update user form -->
                             <div class="form-group">
@@ -253,6 +253,89 @@
                                 </div>
                             </div>
                         </div>   
+
+                <!-- modal for update event row -->
+                <div class="modal fade" id="updateEventRowModal" tabindex="-1" aria-labelledby="updateEventRowModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="updateEventRowModalLabel">Update Event</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- ...  -->
+                                <div class="form-group">
+                                    <div class="row mb-1">
+                                        <div class="col input-group"> 
+                                            <span class="input-group-text" id="event_id_addon">Event ID </span>
+                                            <input type="text" class="form-control" id="update_event_id" aria-describedby="event_id_addon"  disabled="disabled">
+                                        </div>
+                                        <div class="col">
+                                        
+                                        </div>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <div class="col input-group">
+                                            <span class="input-group-text" id="event_title_addon">Title</span>
+                                            <input type="text" class="form-control" id="update_event_title" aria-describedby="event_title_addon">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <div class="col">
+                                            <span>Start: </span>
+                                            <input class="form-control" type="datetime-local" id="update_start_datetime">
+                                        </div>
+                                        <div class="col">
+                                            <span>End: </span>
+                                            <input class="form-control" type="datetime-local" id="update_end_datetime">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-1">
+                                        <div class="col">
+                                            <span>Location</span>
+                                            <select id="update_event_location" class="form-select" aria-label="Default select example">
+                                                <option  value="" disabled selected>Location</option>
+                                                <option value="0">0</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <span>Category</span>
+                                            <select id="update_event_type" class="form-select" aria-label="Default select example">
+                                                <option  value="" disabled selected>Location</option>
+                                                <option value="0">0</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-1">
+                                        <div class="col">
+                                            <span>Description: </span>
+                                            <textarea class="form-control" id="update_event_description"></textarea>
+                                        </div>
+                                    </div>
+                                    
+            
+                                </div>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <div>
+                                    <button type="button" class="btn btn-danger mr-auto" data-bs-dismiss="modal">Delete</button>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" id="updateUserButton" class="btn btn-primary">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                         <!-- display user table  -->
                         <div id="display-event"></div>
                     </div>
